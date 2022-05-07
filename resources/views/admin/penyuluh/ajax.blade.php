@@ -19,12 +19,12 @@ $(function () {
 
 // Reset Form
 function resetForm(){
-    $("[name='nip']").val("nip")
+    $("[name='nip']").val("")
     $("[name='username']").val("")
     $("[name='nama_penyuluh']").val("")
-   // $("[name='jenis_kelamin']").val("")
-   // $("[name='bpp_id']").val("")
-   // $("[name='jabatan']").val("")
+    $("[name='jenis_kelamin']").val("")
+    $("[name='bpp_id']").val("")
+    $("[name='jabatan']").val("")
 }
 
 // create

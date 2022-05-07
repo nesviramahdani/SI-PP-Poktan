@@ -5,13 +5,10 @@ $(function () {
       processing: true,
       serverSide: true,
       "responsive": true,
-      ajax: "{{ route('kelompok-tani.index') }}",
+      ajax: "{{ route('wkpp.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
-          {data: 'nama_kelompok', name: 'nama_kelompok'},
-          {data: 'jumlah_anggota', name: 'jumlah_anggota'},
-          {data: 'luas_lahan', name: 'luas_lahan'},
-          {data: 'alamat_sekretariat', name: 'alamat_sekretariat'},
+          {data: 'nama_wkpp', name: 'nama_wkpp'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -20,19 +17,15 @@ $(function () {
 
 // Reset Form
   function resetForm(){
-      $("[name='id_kelompok']").val("")
-      $("[name='nama_kelompok']").val("")
-      $("[name='kelas_kelompok']").val("")
-      $("[name='badan_hukum']").val("")
-      $("[name='alamat_sekretariat']").val("")
-      $("[name='username']").val("")
+      $("[name='id_wkpp']").val("")
+      $("[name='nama_wkpp']").val("")
   }
 
 // create
 $("#store").on("submit", function(e) {
   e.preventDefault()
   $.ajax({
-    url: "{{ route('kelompok-tani.store') }}",
+    url: "{{ route('wkpp.store') }}",
     method: "POST",
     data: $(this).serialize(),
     success:function(response) {
@@ -74,15 +67,13 @@ function printErrorMsg(msg) {
 $("body").on("click", ".btn-edit", function() {
   var id = $(this).attr("id")
   $.ajax({
-    url: "/admin/kelompok-tani/"+id+"/edit",
+    url: "/admin/wkpp/"+id+"/edit",
     method: "GET",
     success: function(response) {
       $("#id_edit").val(response.data.id)
-      $("#id_kelompok_edit").val(response.data.id_kelompok)
-      $("#nama_kelompok_edit").val(response.data.nama_kelompok)
-      $("#kelas_kelompok_edit").val(response.data.kelas_kelompok)
-      $("#badan_hukum_edit").val(response.data.badan_hukum)
-      $("#alamat_sekretariat_edit").val(response.data.alamat_sekretariat)
+      $("#id_wkpp_edit").val(response.data.id_wkpp)
+      $("#nama_wkpp_edit").val(response.data.nama_wkpp)
+      $("#penyuluh_id_edit").val(response.data.penyuluh_id)
       $("#editModal").modal("show")
     },
     error: function(err) {
@@ -102,7 +93,7 @@ $("#update").on("submit", function(e) {
   e.preventDefault()
   var id = $("#id_edit").val()
   $.ajax({
-    url: "/admin/kelompok-tani/"+id,
+    url: "/admin/wkpp/"+id,
     method: "PATCH",
     data: $(this).serialize(),
     success: function(response) {
@@ -145,7 +136,7 @@ $("body").on("click", ".btn-delete", function() {
   }).then((result) => {
     if (result.isConfirmed) {
       $.ajax({
-        url: "/admin/kelompok-tani/"+id,
+        url: "/admin/wkpp/"+id,
         method: "DELETE",
         success: function(response) {
           $('#dataTable2').DataTable().ajax.reload()

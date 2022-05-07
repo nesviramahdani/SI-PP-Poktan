@@ -39,7 +39,7 @@ class KegiatanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_kegiatan' => 'required',
-            'tanggal_kegiatan' => 'required',
+            'tanggal' => 'required',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
             'lokasi' => 'required',
@@ -50,7 +50,7 @@ class KegiatanController extends Controller
                 kegiatan::create([
                     'id_kegiatan' => 'SSWR'.Str::upper(Str::random(5)),
                     'nama_kegiatan' => $request->nama_kegiatan,
-                    'tanggal_kegiatan' => $request->tanggal_kegiatan,
+                    'tanggal' => $request->tanggal,
                     'jam_mulai' => $request->jam_mulai,
                     'jam_selesai' => $request->jam_selesai,
                     'lokasi' => $request->lokasi,
@@ -73,7 +73,7 @@ class KegiatanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_kegiatan' => 'required',
-            'tanggal_kegiatan' => 'required',
+            'tanggal' => 'required',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
             'lokasi' => 'required',
@@ -82,7 +82,7 @@ class KegiatanController extends Controller
         if ($validator->passes()) {
             kegiatan::findOrFail($id)->update([
                 'nama_kegiatan' => $request->nama_kegiatan,
-                'tanggal_kegiatan' => $request->tanggal_kegiatan,
+                'tanggal' => $request->tanggal,
                 'jam_mulai' => $request->jam_mulai,
                 'jam_selesai' => $request->jam_selesai,
                 'lokasi' => $request->lokasi,

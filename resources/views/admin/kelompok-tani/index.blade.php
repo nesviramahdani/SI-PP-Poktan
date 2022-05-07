@@ -27,8 +27,8 @@
           <tr>
             <th>No</th>
             <th>Nama Kelompok</th>
-            <th>Kelas</th>
-            <th>Badan Hukum</th>
+            <th>Jumlah Anggota</th>
+            <th>Luas Lahan</th>
             <th>Sekretariat</th>
             <th>Aksi</th>
           </tr>

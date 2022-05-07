@@ -87,8 +87,8 @@
             <input required="" type="text" name="nama_kegiatan" id="nama_kegiatan" class="form-control">
           </div>
           <div class="form-group">
-            <label for="tanggal_kegiatan">Tanggal Kegiatan:</label>
-            <input required="" type="date" name="tanggal_kegiatan" id="tanggal_kegiatan" class="form-control">
+            <label for="tanggal">Tanggal Kegiatan:</label>
+            <input required="" type="date" name="tanggal" id="tanggal" class="form-control">
           </div> 
           <div class="form-group">
             <label for="jam_mulai">Waktu Mulai:</label>
@@ -201,7 +201,7 @@ $(function () {
           {data: 'DT_RowIndex' , name: 'id'},
           {data: 'kelompok_tani_id', name: 'kelompok_tani_id'},
           {data: 'nama_kegiatan', name: 'nama_kegiatan'},
-          {data: 'tanggal_kegiatan', name: 'tanggaL_kegiatan'},
+          {data: 'tanggal', name: 'tanggal'},
           {data: 'jam_mulai', name: 'jam_mulai'},
           {data: 'jam_selesai', name: 'jam_selesai'},
           {data: 'lokasi', name: 'lokasi'},
@@ -214,7 +214,7 @@ $(function () {
   // Reset Form
   function resetForm(){
       $("[name='nama_kegiatan']").val("")
-      $("[name='tanggal_kegiatan']").val("")
+      $("[name='tanggal']").val("")
       $("[name='jam_mulai']").val("")
       $("[name='jam_selesai']").val("")
       $("[name='lokasi']").val("")
@@ -258,7 +258,7 @@ $(function () {
     var id = $(this).attr("id")
 
     $.ajax({
-     //   url: "/penyuluh/"+id+"/edit",
+       url: "/penyuluh/"+id+"/edit",
         method: "GET",
         success:function(response){
             $("#editModal").modal("show")

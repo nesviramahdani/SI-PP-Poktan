@@ -39,12 +39,12 @@
                     {{ $role->name }}
                   </span>
                 @endif
-                @if($row->hasAnyRole('petugas'))
+                @if($row->hasAnyRole('penyuluh'))
                   <span class="badge badge-success">
                     {{ $role->name }}
                   </span>
                 @endif
-                @if($row->hasAnyRole('siswa'))
+                @if($row->hasAnyRole('kelompok tani'))
                   <span class="badge badge-danger">
                     {{ $role->name }}
                   </span>
