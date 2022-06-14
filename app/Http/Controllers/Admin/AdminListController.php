@@ -28,22 +28,22 @@ class AdminListController extends Controller
     {
     	$validator = Validator::make($request->all(), [
     		'username' => 'required|unique:users',
-    		'nama_petugas' => 'required',
+    		'nama_admin' => 'required',
     	]);
 
     	if ($validator->passes()) {
             DB::transaction(function() use($request){
                 $user = User::create([
                     'username' => Str::lower($request->username),
-                    'password' => Hash::make('sppr2021'),
+                    'password' => Hash::make('admin'),
                 ]);
 
                 $user->assignRole('admin');
 
                 Admin::create([
                     'user_id' => $user->id,
-                    'kode_petugas' => 'PTGR'.Str::upper(Str::random(5)),
-                    'nama_petugas' => $request->nama_petugas,
+                    'id_admin' => 'ADMIN'.Str::upper(Str::random(5)),
+                    'nama_admin' => $request->nama_admin,
                 ]);
             });
 
@@ -55,19 +55,19 @@ class AdminListController extends Controller
 
     public function edit($id)
     {
-    	$admin = User::with(['petugas'])->findOrFail($id);
+    	$admin = User::with(['admin'])->findOrFail($id);
         return response()->json(['data' => $admin]);
     }
 
     public function update($id, Request $request)
     {
     	$validator = Validator::make($request->all(), [
-    		'nama_petugas' => 'required',
+    		'nama_admin' => 'required',
     	]);
 
     	if ($validator->passes()) {
             Admin::where('user_id', $id)->update([
-                'nama_petugas' => $request->nama_petugas,
+                'nama_admin' => $request->nama_admin,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);

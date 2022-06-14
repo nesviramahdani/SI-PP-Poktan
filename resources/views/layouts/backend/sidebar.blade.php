@@ -128,6 +128,14 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('komoditas.index') }}" class="nav-link {{ Request::segment(2) == 'komoditas' ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user-tie"></i>
+                  <p>
+                    Komoditas
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('admin-list.index') }}" class="nav-link {{ Request::segment(2) == 'admin-list' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user-tie"></i>
                   <p>
@@ -143,16 +151,31 @@
                   </p>
                 </a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Produksi
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('petugas.index') }}" class="nav-link {{ Request::segment(2) == 'petugas' ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Petugas
-                  </p>
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Produksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('produksi.laporan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cetak Laporan</p>
                 </a>
               </li>
             </ul>
-          </li>
+        </li>
         @endrole
         
         @role('penyuluh')
@@ -166,50 +189,27 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('kegiatan.index') }}" class="nav-link">
+                <a href="{{ route('jadwal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Kegiatan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('LaporanKegiatan.index') }}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Kegiatan</p>
+                  <p>Cetak Jadwal</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/tables/jsgrid.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Cetak Laporan</p>
+                  <p>Status Kegiatan</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/tables/jsgrid.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Keluhan</p>
-                </a>
-              </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Bantuan
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pengajuan Bantuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>History Pengajuan</p>
+                  <p>Cetak Kegiatan</p>
                 </a>
               </li>
             </ul>
@@ -224,9 +224,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
+                <a href="{{ route('produksi.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Produksi</p>
+                  <p>Input Produksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('produksi.dataproduksi') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Produksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('produksi.laporan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cetak Laporan</p>
                 </a>
               </li>
             </ul>
@@ -292,13 +304,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('kegiatan.index') }}" class="nav-link">
+                <a href="{{ route('kegiatan.jadwal') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jadwal Kegiatan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('LaporanKegiatan.index') }}" class="nav-link">
+                <a href="{{ route('kegiatan.laporan') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Kegiatan</p>
                 </a>
@@ -312,68 +324,7 @@
               <li class="nav-item">
                 <a href="pages/tables/jsgrid.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Keluhan</p>
-                </a>
-              </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Produksi
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Input Produksi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Produksi</p>
-                </a>
-              </li>
-            </ul>
-        </li>
-        @endrole
-
-        @role('kelompok tani')
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Kegiatan
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('kegiatan.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jadwal Kegiatan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('LaporanKegiatan.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Kegiatan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cetak Laporan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Keluhan</p>
+                  <p>Galeri</p>
                 </a>
               </li>
             </ul>
@@ -388,13 +339,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
+                <a href="{{ route('pengajuan.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengajuan Bantuan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
+                <a href="{{ route('pengajuan.history') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>History Pengajuan</p>
                 </a>

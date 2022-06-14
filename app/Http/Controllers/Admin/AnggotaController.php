@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
-use App\Models\KelompokTani;
+use App\Models\Kelompoktani;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,9 @@ class AnggotaController extends Controller
         }
 
         $anggota = Anggota::all();
-        $kelompokTani = KelompokTani::all();
+        $kelompoktani = Kelompoktani::all();
 
-        return view('admin.anggota.index', compact('anggota','kelompokTani'));
+        return view('admin.anggota.index', compact('anggota','kelompoktani'));
     }
 
     /**
@@ -49,30 +50,33 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_anggota' => 'required|unique:anggotas',
-            'nik' => 'required|unique:anggotas',
+            'nik' => 'required|unique:anggota',
             'nama_anggota' => 'required',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
-            'jenis_usaha' => 'required',
             'luas_lahan' => 'required',
-            'jenis_lahan' => 'required',
+            'username' => 'required|unique:users',
         ]);
 
         if ($validator->passes()) {
+            DB::transaction(function() use($request){
+                $user = User::create([
+                    'username' => Str::lower($request->username),
+                    'password' => Hash::make('kelompoktani'),
+                ]);
+
+                $user->assignRole('kelompok tani');
 
                 Anggota::create([
-                    'id_anggota' => $request->id_anggota,
+                    'user_id' => $user->id,
                     'nik' => $request->nik,
                     'nama_anggota' => $request->nama_anggota,
                     'jenis_kelamin' => $request->jenis_kelamin,
                     'jabatan' => $request->jabatan,
-                    'jenis_usaha' => $request->jenis_usaha,
                     'luas_lahan' => $request->luas_lahan,
-                    'jenis_lahan' => $request->jenis_lahan,
-                    'kelompok_tani_id' => $request->kelompok_tani_id,
+                    'kelompoktani_id' => $request->kelompoktani_id,
                 ]);
-            
+            });
 
             return response()->json(['message' => 'Data berhasil disimpan!']);   
         }
@@ -88,7 +92,7 @@ class AnggotaController extends Controller
      */
     public function edit($id)
     {
-        $anggota = Anggota::with(['kelompok_tanis'])->findOrFail($id);
+        $anggota = Anggota::with(['kelompoktani'])->findOrFail($id);
         return response()->json(['data' => $anggota]);
     }
 
@@ -105,10 +109,8 @@ class AnggotaController extends Controller
             'nama_anggota' => $request->nama_anggota,
             'jenis_kelamin' => $request->jenis_kelamin,
             'jabatan' => $request->jabatan,
-            'jenis_usaha' => $request->jenis_usaha,
             'luas_lahan' => $request->luas_lahan,
-            'jenis_lahan' => $request->jenis_lahan,
-            'kelompok_tani_id' => $request->kelompok_tani_id,
+            'kelompoktani_id' => $request->kelompoktani_id,
         ]);
         return response()->json(['message' => 'Data berhasil diupdate!']);
       
@@ -122,7 +124,9 @@ class AnggotaController extends Controller
      */
     public function destroy($id)
     {
-        Anggota::findOrFail($id)->delete();
+        $anggota = Anggota::findOrFail($id);
+        User::findOrFail($anggota->user_id)->delete();
+        $anggota->delete();
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 }

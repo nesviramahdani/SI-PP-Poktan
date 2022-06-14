@@ -12,6 +12,7 @@ $(function () {
           {data: 'nik', name: 'nik'},
           {data: 'jenis_kelamin', name: 'jenis_kelamin'},
           {data: 'luas_lahan', name: 'luas_lahan'},
+          {data: 'kelompoktani.nama_kelompoktani', name: 'kelompoktani.nama_kelompoktani'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -20,13 +21,10 @@ $(function () {
 
 // Reset Form
 function resetForm(){
-    $("[name='id_anggota']").val("")
     $("[name='nik']").val("nik")
     $("[name='nama_anggota']").val("")
     $("[name='jenis_kelamin']").val("")
     $("[name='jabatan']").val("")
-     $("[name='jenis_usaha']").val("")
-    $("[name='jenis_lahan']").val("")
     $("[name='luas_lahan']").val("")
 }
 
@@ -71,14 +69,11 @@ $("body").on("click", ".btn-edit", function() {
     method: "GET",
     success: function(response) {
       $("#id_edit").val(response.data.id)
-      $("#id_anggota_edit").val(response.data.id_anggota)
       $("#nama_anggota_edit").val(response.data.nama_anggota)
       $("#nik_edit").val(response.data.nik)
-      $("#kelompok_tani_id_edit").val(response.data.kelompok_tani_id)
+      $("#kelompoktani_id_edit").val(response.data.kelompoktani_id)
       $("#jabatan_edit").val(response.data.jabatan)
       $("#jenis_kelamin_edit").val(response.data.jenis_kelamin)
-      $("#jenis_lahan_edit").val(response.data.jenis_lahan)
-      $("#jenis_usaha_edit").val(response.data.jenis_usaha)
       $("#luas_lahan_edit").val(response.data.luas_lahan)
       $("#editModal").modal("show")
     },

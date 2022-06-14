@@ -26,12 +26,14 @@
           <thead>
           <tr>
             <th>No</th>
+            <th>ID</th>
             <th>Jenis Bantuan</th>
             <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
           <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -61,10 +63,6 @@
       <div class="modal-body">
           <div class="alert alert-danger print-error-msg" style="display: none;">
             <ul></ul>
-          </div>
-          <div class="form-group">
-            <label for="id_bantuan_create">ID Bantuan:</label>
-            <input required type="text" name="id_bantuan" id="id_bantuan_create" class="form-control">
           </div>
           <div class="form-group">
             <label for="jenis_bantuan_create">Jenis Bantuan:</label>

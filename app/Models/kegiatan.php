@@ -4,23 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\KelompokTani;
+use App\Models\Kelompoktani;
+use App\Models\Periode;
 
-class kegiatan extends Model
+class Kegiatan extends Model
 {
     use HasFactory;
-    protected $table = 'jadwal_kegiatans';
-    protected $fillable = [
-        'kelompok_tani_id',
-    	'nama_kegiatan',
-    	'tanggal',
-    	'jam_mulai',
-    	'jam_selesai',
-        'lokasi',
-    ];
-    
+    protected $table = 'kegiatan';
+
+    protected $guarded = [];
+
     public function kelompoktani()
     {
-        return $this->belongsTo(KelompokTani::class);
+        return $this->belongsTo(Kelompoktani::class);
     }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class);
+    }
+
 }

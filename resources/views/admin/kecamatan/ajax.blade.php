@@ -8,6 +8,7 @@ $(function () {
       ajax: "{{ route('kecamatan.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'id_kecamatan', name: 'id_kecamatan'},
           {data: 'nama_kecamatan', name: 'nama_kecamatan'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
@@ -73,7 +74,6 @@ $("body").on("click", ".btn-edit", function() {
       $("#id_edit").val(response.data.id)
       $("#id_kecamatan_edit").val(response.data.id_kecamatan)
       $("#nama_kecamatan_edit").val(response.data.nama_kecamatan)
-      $("#bpp_id_edit").val(response.data.bpp_id)
       $("#editModal").modal("show")
     },
     error: function(err) {

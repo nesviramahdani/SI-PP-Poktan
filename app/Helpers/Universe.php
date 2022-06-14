@@ -2,23 +2,29 @@
 
 namespace App\Helpers;
 
-use App\Models\KelompokTani;
+
 use Illuminate\Support\Facades\Auth;
-use App\Models\Pembayaran;
 use App\Models\User;
-use App\Models\Petugas;
-use App\Models\Siswa;
+use App\Models\Admin;
+use App\Models\Anggota;
+use App\Models\Penyuluh;
 
 class Universe
 {	
-	public static function petugas()
+	public static function admin()
 	{
-		return Petugas::where('user_id', Auth::user()->id)->first(); 
+		return Admin::where('user_id', Auth::user()->id)->first(); 
 	}
 
-	public static function kelompoktani()
+	public static function penyuluh()
 	{
-		return KelompokTani::where('user_id', Auth::user()->id)->first(); 
+		return Penyuluh::where('user_id', Auth::user()->id)->first(); 
+	}
+
+
+	public static function anggota()
+	{
+		return Anggota::where('user_id', Auth::user()->id)->first(); 
 	}
 
 	public static function bulanAll()

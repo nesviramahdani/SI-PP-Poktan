@@ -11,12 +11,11 @@ use App\Models\Pembayaran;
 class Admin extends Model
 {
     use HasFactory;
-
+    protected $table = 'admin';
     protected $fillable = [
     	'user_id',
-    	'kode_petugas',
-    	'nama_petugas',
-        'jenis_kelamin',
+    	'id_admin',
+    	'nama_admin',
     ];
 
     public function user()
@@ -24,13 +23,4 @@ class Admin extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function siswa()
-    {
-    	return $this->hasMany(Siswa::class);
-    }
-
-    public function pembayaran()
-    {
-        return $this->hasMany(Pembayaran::class);
-    }
 }

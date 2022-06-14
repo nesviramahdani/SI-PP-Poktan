@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Bpp;
+use App\Models\Kelompoktani;
 
 class Kecamatan extends Model
 {
     use HasFactory;
-    // protected $table = 'kecamatan';
+    protected $table = 'kecamatan';
     protected $guarded = [];
 
-    public function bpp()
+    public function kelompoktani()
     {
-        return $this->belongsTo(Bpp::class, 'bpp_id');
+        return $this->hasMany(Kelompoktani::class);
     }
 }

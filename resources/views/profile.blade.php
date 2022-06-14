@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label for="">Nama Petugas:</label>
+						<label for="">Nama Admin:</label>
 						<input type="" name="" value="{{ Universe::petugas()->nama_petugas }}" readonly="" id="" class="form-control">
 					</div>
 				</div>

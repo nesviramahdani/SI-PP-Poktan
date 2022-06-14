@@ -22,30 +22,6 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home.index');
 });
 
-Route::prefix('pembayaran')->middleware(['auth', 'role:admin|petugas'])->group(function(){
-	Route::get('bayar', 'PembayaranController@index')->name('pembayaran.index');
-	Route::get('bayar/{nisn}', 'PembayaranController@bayar')->name('pembayaran.bayar');
-	Route::get('spp/{tahun}', 'PembayaranController@spp')->name('pembayaran.spp');
-	Route::post('bayar/{nisn}', 'PembayaranController@prosesBayar')->name('pembayaran.proses-bayar');
-	Route::get('status-pembayaran', 'PembayaranController@statusPembayaran')
-		->name('pembayaran.status-pembayaran');
-
-	Route::get('status-pembayaran/{siswa:nisn}', 'PembayaranController@statusPembayaranShow')
-		->name('pembayaran.status-pembayaran.show');
-
-	Route::get('status-pembayaran/{nisn}/{tahun}', 'PembayaranController@statusPembayaranShowStatus')
-		->name('pembayaran.status-pembayaran.show-status');
-	
-	Route::get('history-pembayaran', 'PembayaranController@historyPembayaran')
-		->name('pembayaran.history-pembayaran');
-	
-	Route::get('history-pembayaran/preview/{id}', 'PembayaranController@printHistoryPembayaran')
-		->name('pembayaran.history-pembayaran.print');
-	
-	Route::get('laporan', 'PembayaranController@laporan')->name('pembayaran.laporan');
-	Route::post('laporan', 'PembayaranController@printPdf')->name('pembayaran.print-pdf');
-});
-
 Route::prefix('admin')
 ->namespace('Admin')
 ->middleware(['auth'])
@@ -60,7 +36,6 @@ Route::prefix('admin')
 		Route::delete('admin-list/{id}', 'AdminListController@destroy')->name('admin-list.destroy');
 		Route::resource('user', 'UserController');
 		Route::resource('petugas', 'PetugasController');
-		Route::resource('admin', 'AdminController');
 		Route::resource('permissions', 'PermissionController');
 		Route::resource('roles', 'RoleController');
 		Route::get('role-permission', 'RolePermissionController@index')->name('role-permission.index');
@@ -76,44 +51,39 @@ Route::prefix('admin')
 		Route::resource('kecamatan', 'KecamatanController');
 		Route::resource('wkpp', 'WkppController');
 		Route::resource('bpp', 'BppController');
-		Route::resource('bpp', 'BppController');
 		Route::resource('bantuan', 'BantuanController');
 		Route::resource('penyuluh', 'PenyuluhController');
 		Route::resource('anggota', 'AnggotaController');
-		Route::resource('kelompok-tani', 'KelompokTaniController');
-		Route::resource('kegiatan', 'KegiatanController');
+		Route::resource('kelompok-tani', 'KelompoktaniController');
+		Route::resource('komoditas', 'KomoditasController');
 
-		Route::get('file-upload', [PengajuanController::class, 'index'])->name('pengajuan.index');
-		Route::post('store', [PengajuanController::class, 'store'])->name('pengajuan.store');
-		
-	});
-	
-	Route::middleware(['role:admin|petugas'])->group(function(){
-		Route::resource('spp', 'SppController');
-		Route::resource('pembayaran-spp', 'PembayaranController');
-		Route::resource('kelas', 'KelasController');
-		Route::resource('siswa', 'SiswaController');
-		// Route::delete('delete-all-siswa', 'CheckBoxDeleteController@deleteAllSiswa')
-		// 	->name('delete-all-siswa');
 	});
 });
 
-Route::prefix('kelompok tani')
-->middleware(['auth', 'role:kelompok tani'])
-->group(function(){
-	Route::get('jadwal-kegiatan', 'KegiatanPoktanController@jadwalKegiatan')->name('kelompokTani.jadwal-kegiatan');
-	Route::get('pembayaran-spp', 'SiswaController@pembayaranSpp')->name('siswa.pembayaran-spp');
-	Route::get('pembayaran-spp/{spp:tahun}', 'SiswaController@pembayaranSppShow')->name('siswa.pembayaran-spp.pembayaranSppShow');
-	Route::get('history-pembayaran', 'SiswaController@historyPembayaran')->name('siswa.history-pembayaran');
-	Route::get('history-pembayaran/preview/{id}', 'SiswaController@previewHistoryPembayaran')->name('siswa.history-pembayaran.preview');
-	Route::get('laporan-pembayaran', 'SiswaController@laporanPembayaran')->name('siswa.laporan-pembayaran');
-	Route::post('laporan-pembayaran', 'SiswaController@printPdf')->name('siswa.laporan-pembayaran.print-pdf');
-});
 
 Route::prefix('penyuluh')
 ->middleware(['auth', 'role:penyuluh'])
 ->group(function(){
-	Route::resource('kegiatan', 'KegiatanController');
+
+	Route::resource('produksi', 'ProduksiController');	
+	Route::get('produksi-laporan', 'ProduksiController@laporan')->name('produksi.laporan');
+	Route::get('produksi-cetaklaporan/{tanggal_mulai}/{tanggal_selesai}', 'ProduksiController@cetaklaporan')->name('produksi.cetaklaporan');
+	Route::get('exportpdf', 'ProduksiController@exportpdf')->name('exportpdf');
+	Route::get('exportexcel', 'ProduksiController@exportexcel')->name('exportexcel');
+	Route::get('dataproduksi', 'ProduksiController@dataproduksi')->name('produksi.dataproduksi');
+
+	Route::resource('jadwal', 'JadwalController');	
+});
+
+Route::prefix('kelompoktani')
+->middleware(['auth', 'role:kelompok tani'])
+->group(function(){
+	Route::get('/pengajuan', 'PengajuanController@index')->name('pengajuan.index');
+	Route::post('/pengajuan', 'PengajuanController@store')->name('pengajuan.store');
+	Route::get('/pengajuan/history', 'PengajuanController@history')->name('pengajuan.history');
+	
+	Route::get('/jadwalKegiatan', 'KegiatanController@jadwal')->name('kegiatan.jadwal');
+	Route::get('/LaporanKegiatan', 'KegiatanController@laporan')->name('kegiatan.laporan');
 });
 
 Route::prefix('profile')
@@ -124,8 +94,5 @@ Route::prefix('profile')
 	Route::patch('/', 'ProfileController@update')->name('update');
 });
 
-Route::prefix('kegiatan')->middleware(['auth', 'role:admin|penyuluh'])->group(function(){
-	Route::get('LaporanKegiatan', 'LaporanKegiatanController@index')->name('LaporanKegiatan.index');
-});
 
 

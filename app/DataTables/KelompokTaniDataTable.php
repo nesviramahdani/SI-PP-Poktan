@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\KelompokTani;
+use App\Models\Kelompoktani;
 use \Yajra\Datatables\Datatables;
 
-class KelompokTaniDataTable
+class KelompoktaniDataTable
 {
 	public function data()
 	{
-		$data = KelompokTani::with(['wkpp'])->latest();
+		$data = Kelompoktani::with(['wkpp', 'bpp', 'kecamatan', 'penyuluh'])->latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Wkpp;
-use App\Models\Penyuluh;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\WkppDataTable;
 
@@ -26,23 +26,21 @@ class WkppController extends Controller
         }
 
         $wkpp = Wkpp::all();
-        $penyuluh = Penyuluh::all();
-        return view('admin.wkpp.index', compact('wkpp', 'penyuluh'));
+        return view('admin.wkpp.index', compact('wkpp'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_wkpp' => 'required|unique:wkpps',
-            'nama_wkpp' => 'required',
-        ],[
-            'id_wkpp.required' => 'ID WKPP tidak boleh kosong!',
-            'id_wkpp.unique' => 'ID WKPP sudah terdaftar!',
-            'nama_wkpp.required' => 'Nama WKPP tidak boleh kosong!',
+            'nama_wkpp' => 'required|unique:wkpp',
         ]);
 
        if ($validator->passes()) {
-            Wkpp::create($request->all());
+        Wkpp::create([
+            'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
+            'nama_wkpp' => $request->nama_wkpp,
+        ]);
+
             return response()->json(['message' => 'Data berhasil disimpan!']);  
         }
        
@@ -51,24 +49,19 @@ class WkppController extends Controller
 
     public function edit($id)
     {
-        $wkpp = Wkpp::with(['penyuluh'])->findOrFail($id);
+        $wkpp = Wkpp::findOrFail($id);
         return response()->json(['data' => $wkpp]);
     }
 
     public function update(Request $request, $id)
     {
          $validator = Validator::make($request->all(), [
-             'id_wkpp' => 'required',
-             'nama_wkpp' => 'required',
-         ],[
-            'id_wkpp.required' => 'ID WKPP tidak boleh kosong!',
-             'nama_wkpp.required' => 'Nama WKPP tidak boleh kosong!',
+             'nama_wkpp' => 'required|unique:wkpp',
          ]);
 
-        if ($validator->failed()) {
+        if ($validator->passes()) {
             Wkpp::findOrFail($id)->update([
                 'nama_wkpp' => $request->nama_wkpp,
-                'penyuluh_id' => $request->penyuluh_id,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);

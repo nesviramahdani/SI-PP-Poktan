@@ -9,7 +9,7 @@ class WkppDataTable
 {
 	public function data()
 	{
-		$data = Wkpp::with(['penyuluh'])->latest();
+		$data = Wkpp::latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

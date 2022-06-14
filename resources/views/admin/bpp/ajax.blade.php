@@ -8,6 +8,7 @@ $(function () {
       ajax: "{{ route('bpp.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'id_bpp', name: 'id_bpp'},
           {data: 'nama_bpp', name: 'nama_bpp'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]

@@ -29,17 +29,19 @@
         <table id="dataTable2" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>No</th>
-            <th>Nama Anggota</th>
-            <th>NIK</th>
-            <th>Jenis Kelamin</th>
-            <th>Luas Lahan</th>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">NIK</th>
+            <th scope="col">JK</th>
+            <th scope="col">Luas(Ha)</th>
+            <th scope="col">Kelompok</th>
             <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -75,12 +77,6 @@
           <div class="row">
             <div class="col-lg-3">
               <div class="form-group">
-                <label for="id_anggota">ID Anggota:</label>
-                <input required="" type="text" name="id_anggota" id="id_anggota" class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
                 <label for="nama_anggota">Nama Anggota</label>
                 <input required="" type="text" name="nama_anggota" id="nama_anggota" class="form-control">  
               </div>
@@ -89,6 +85,18 @@
               <div class="form-group">
                 <label for="nik">NIK:</label>
                 <input required="" type="text" name="nik" id="nik" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="luas_lahan">Luas Lahan:</label>
+                <input required="" type="text" name="luas_lahan" id="luas_lahan" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="username">Username:</label>
+                <input required="" type="text" name="username" id="username" class="form-control">
               </div>
             </div>  
           </div>
@@ -105,11 +113,11 @@
             </div>
             <div class="col-lg-3">
               <div class="form-group">
-                <label for="kelompok_tani_id">Kelompok Tani:</label>
-                <select required="" name="kelompok_tani_id" id="kelompok_tani_id" class="form-control select2bs4">
+                <label for="kelompoktani_id">Kelompok Tani:</label>
+                <select required="" name="kelompoktani_id" id="kelompoktani_id" class="form-control select2bs4">
                   <option disabled="" selected="">- PILIH KELOMPOK TANI -</option>
-                  @foreach($kelompokTani as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_kelompok }}</option>
+                  @foreach($kelompoktani as $row)
+                    <option value="{{ $row->id }}">{{ $row->nama_kelompoktani }}</option>
                   @endforeach
                 </select>
               </div>
@@ -126,39 +134,7 @@
                 </select>
               </div>
             </div> 
-          </div> 
-            <div class="row">
-            <div class="col-lg-3">
-            <div class="form-group">
-                <label for="jenis_lahan">Jenis Lahan:</label>
-                <select required="" name="jenis_lahan" id="jenis_lahan" class="form-control select2bs4">
-                    <option disabled="" selected="">- PILIH JABATAN -</option>
-                    <option value="Ketua">Ketua</option>
-                    <option value="Sekretaris">Sekretaris</option>
-                    <option value="Bendahara">Bendahara</option>
-                    <option value="Anggota">Anggota</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="luas_lahan">Luas Lahan:</label>
-                <input required="" type="text" name="luas_lahan" id="luas_lahan" class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-3">
-            <div class="form-group">
-                <label for="jenis_usaha">Jenis Usaha:</label>
-                <select required="" name="jenis_usaha" id="jenis_usaha" class="form-control select2bs4">
-                    <option disabled="" selected="">- PILIH JABATAN -</option>
-                    <option value="Ketua">Ketua</option>
-                    <option value="Sekretaris">Sekretaris</option>
-                    <option value="Bendahara">Bendahara</option>
-                    <option value="Anggota">Anggota</option>
-                </select>
-              </div>
-            </div> 
-        </div>  
+          </div>   
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -190,22 +166,22 @@
           <div class="row">
           <div class="col-lg-4">
               <div class="form-group">
-                <label for="id_anggota_edit">ID Anggota:</label>
-                <input type="hidden" name="id_edit" id="id_edit" class="form-control" readonly="">
-                <input required="" type="text" name="id_anggota" readonly id="id_anggota_edit" class="form-control">
-              </div>
-          </div> 
-          <div class="col-lg-4">
-              <div class="form-group">
                 <label for="nama_anggota_edit">Nama Anggota:</label>
-                <input required="" type="text" name="nama_anggota" id="nama_anggota_edit" class="form-control">
+                <input type="hidden" name="id_edit" id="id_edit" class="form-control" readonly="">
+                <input required="" type="text" name="nama_anggota" readonly id="nama_anggota_edit" class="form-control">
               </div>
           </div> 
           <div class="col-lg-4">
               <div class="form-group">
                 <label for="nik_edit">NIK:</label>
+                <input required="" type="text" name="nik" id="nik_edit" class="form-control">
+              </div>
+          </div> 
+          <div class="col-lg-4">
+              <div class="form-group">
+                <label for="luas_lahan_edit">NIK:</label>
                 <input type="hidden" name="id_edit" id="id_edit" class="form-control" readonly="">
-                <input required="" type="text" name="nik" readonly id="nik_edit" class="form-control">
+                <input required="" type="text" name="luas_lahan" readonly id="luas_lahan_edit" class="form-control">
               </div>
           </div>
           </div>
@@ -220,48 +196,17 @@
                 </select>
               </div>
             </div>
-             <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group">
-                <label for="jabatan_edit">Jabatan:</label>
-                <select required="" name="jabatan" id="jabatan_edit" class="form-control">
-                    <option disabled="" selected="">- PILIH JABATAN -</option>
-                    <option value="Ketua">Ketua</option>
-                    <option value="Sekeretaris">Sekretaris</option>
-                    <option value="Bendahara">Bendahara</option>
-                    <option value="Anggota">Anggota</option>
+                <label for="kelompoktani_id_edit">Kelompok Tani:</label>
+                <select required="" name="kelompoktani_id" id="kelompoktani_id_edit" class="form-control select2bs4">
+                  <option disabled="" selected="">- PILIH KELOMPOK TANI -</option>
+                  @foreach($kelompoktani as $row)
+                    <option value="{{ $row->id }}">{{ $row->nama_kelompoktani }}</option>
+                  @endforeach
                 </select>
               </div>
             </div> 
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="jenis_usaha_edit">Jenis Usaha:</label>
-                <select required="" name="jenis_usaha" id="jenis_usaha_edit" class="form-control">
-                    <option disabled="" selected="">- PILIH JENIS USAHA -</option>
-                    <option value="Ketua">Ketua</option>
-                    <option value="Sekeretaris">Sekretaris</option>
-                    <option value="Bendahara">Bendahara</option>
-                    <option value="Anggota">Anggota</option>
-                </select>
-              </div>
-            </div> 
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="jenis_lahan_edit">Jenis Lahan:</label>
-                <select required="" name="jenis_lahan" id="jenis_lahan_edit" class="form-control">
-                    <option disabled="" selected="">-JENIS LAHAN -</option>
-                    <option value="Ketua">Ketua</option>
-                    <option value="Sekeretaris">Sekretaris</option>
-                    <option value="Bendahara">Bendahara</option>
-                    <option value="Anggota">Anggota</option>
-                </select>
-              </div>
-            </div> 
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="luas_lahan_edit">Luas Lahan:</label>
-                <input required="" type="text" name="luas_lahan" id="luas_lahan_edit" class="form-control">
-              </div>
-          </div>
           </div>
       </div>
       

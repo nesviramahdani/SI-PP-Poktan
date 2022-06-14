@@ -9,7 +9,7 @@ class KecamatanDataTable
 {
 	public function data()
 	{
-		$data = Kecamatan::with(['bpp'])->latest();
+		$data = Kecamatan::latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

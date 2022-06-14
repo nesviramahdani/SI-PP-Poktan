@@ -4,23 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Kecamatan;
-use App\Models\Penyuluh;
+use App\Models\Kelompoktani;
+
 
 class Bpp extends Model
 {
     use HasFactory;
+    protected $table = 'bpp';
     protected $guarded = [];
 
-    public function kecamatan()
+    public function kelompoktani()
     {
-        return $this->hasMany(Kecamatan::class);
+        return $this->hasmany(kelompoktani::class);
     }
-
-    public function penyuluh()
-    {
-        return $this->hasMany(Penyuluh::class);
-    }
-
    
 }

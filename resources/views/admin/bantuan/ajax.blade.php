@@ -8,6 +8,7 @@ $(function () {
       ajax: "{{ route('bantuan.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'id_bantuan', name: 'id_bantuan'},
           {data: 'jenis_bantuan', name: 'jenis_bantuan'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]

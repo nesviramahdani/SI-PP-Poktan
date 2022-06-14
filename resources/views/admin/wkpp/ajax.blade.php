@@ -8,6 +8,7 @@ $(function () {
       ajax: "{{ route('wkpp.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'id_wkpp', name: 'id_wkpp'},
           {data: 'nama_wkpp', name: 'nama_wkpp'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
@@ -73,7 +74,6 @@ $("body").on("click", ".btn-edit", function() {
       $("#id_edit").val(response.data.id)
       $("#id_wkpp_edit").val(response.data.id_wkpp)
       $("#nama_wkpp_edit").val(response.data.nama_wkpp)
-      $("#penyuluh_id_edit").val(response.data.penyuluh_id)
       $("#editModal").modal("show")
     },
     error: function(err) {

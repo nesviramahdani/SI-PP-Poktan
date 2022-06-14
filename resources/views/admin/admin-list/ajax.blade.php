@@ -8,8 +8,8 @@ $(function () {
       ajax: "{{ route('admin-list.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
-          {data: 'username', name: 'username'},
-          {data: 'petugas.nama_petugas', name: 'petugas.nama_petugas'},
+          {data: 'user.username', name: 'user.username'},
+          {data: 'nama_admin', name: 'nama_admin'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -19,7 +19,7 @@ $(function () {
 // Reset Form
   function resetForm(){
       $("[name='username']").val("")
-      $("[name='nama_petugas']").val("")
+      $("[name='nama_admin']").val("")
   }
 
 // create
@@ -64,7 +64,7 @@ $("body").on("click", ".btn-edit", function() {
     method: "GET",
     success: function(response) {
       $("#id_edit").val(response.data.id)
-      $("#nama_petugas_edit").val(response.data.petugas.nama_petugas)
+      $("#nama_admin_edit").val(response.data.admin.nama_admin)
       $("#editModal").modal("show")
     }
   })

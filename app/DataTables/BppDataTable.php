@@ -9,7 +9,7 @@ class BppDataTable
 {
 	public function data()
 	{
-		$data = Bpp::with(['kecamatan'])->get();
+		$data = Bpp::latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

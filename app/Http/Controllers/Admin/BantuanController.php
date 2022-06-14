@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bantuan;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\BantuanDataTable;
 
@@ -30,13 +31,15 @@ class BantuanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_bantuan' => 'required|unique:bantuans',
-            'jenis_bantuan' => 'required',
+            'jenis_bantuan' => 'required|unique:bantuans',
         ]);
 
         if ($validator->passes()) {
-            
-            Bantuan::create($request->all());
+
+         Bantuan::create([
+            'id_bantuan' => 'BTN'.Str::upper(Str::random(5)),
+            'jenis_bantuan' => $request->jenis_bantuan,
+            ]);
 
             return response()->json(['message' => 'Data berhasil disimpan!']);
         }
@@ -53,7 +56,7 @@ class BantuanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'jenis_bantuan' => 'required',
+            'jenis_bantuan' => 'required|unique:bantuans',
         ]);
 
         if ($validator->passes()) {

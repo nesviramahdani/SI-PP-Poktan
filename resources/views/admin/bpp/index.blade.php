@@ -26,6 +26,7 @@
           <thead>
           <tr>
             <th>No</th>
+            <th>ID</th>
             <th>Nama BPP</th>
             <th>Aksi</th>
           </tr>
@@ -33,6 +34,7 @@
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>

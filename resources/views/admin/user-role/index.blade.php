@@ -44,7 +44,7 @@
                     {{ $role->name }}
                   </span>
                 @endif
-                @if($row->hasAnyRole('kelompok tani'))
+                @if($row->hasAnyRole('kelompoktani'))
                   <span class="badge badge-danger">
                     {{ $role->name }}
                   </span>

@@ -9,7 +9,7 @@ class PenyuluhDataTable
 {
 	public function data()
 	{
-		$data = Penyuluh::with(['bpp'])->latest();
+		$data = Penyuluh::latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

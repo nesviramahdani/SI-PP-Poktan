@@ -26,6 +26,7 @@
           <thead>
           <tr>
             <th>No</th>
+            <th>ID</th>
             <th>Nama wkpp</th>
             <th>Aksi</th>
           </tr>
@@ -33,6 +34,7 @@
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -63,22 +65,9 @@
             <ul></ul>
           </div>
           <div class="form-group">
-            <label for="id_wkpp_create">ID wkpp:</label>
-            <input required type="" name="id_wkpp" id="id_wkpp_create" class="form-control">
-          </div>
-          <div class="form-group">
             <label for="nama_wkpp_create">Nama wkpp:</label>
             <input required type="" name="nama_wkpp" id="nama_wkpp_create" class="form-control">
           </div>
-          <div class="form-group">
-                <label for="penyuluh_id_create">Penyuluh:</label>
-                <select required="" name="penyuluh_id" id="penyuluh_id_create" class="form-control">
-                <option disabled="" selected="">- PILIH PENYULUH -</option>
-                  @foreach($penyuluh as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_penyuluh}}</option>
-                  @endforeach
-                </select>
-              </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -117,14 +106,6 @@
             <input required type="hidden" readonly="" name="id" id="id_edit" class="form-control">
             <input type="" name="nama_wkpp" id="nama_wkpp_edit" class="form-control">
           </div>
-          <div class="form-group">
-                <label for="penyuluh_id_edit">Penyuluh:</label>
-                <select required="" name="penyuluh_id" id="penyuluh_id_edit" class="form-control">
-                  @foreach($penyuluh as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_penyuluh }}</option>
-                  @endforeach
-                </select>
-              </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>

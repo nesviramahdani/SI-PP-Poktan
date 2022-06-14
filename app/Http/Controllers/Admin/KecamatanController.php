@@ -30,18 +30,14 @@ class KecamatanController extends Controller
         }
         
         $kecamatan = Kecamatan::all();
-        $bpp = Bpp::all();
-        return view('admin.kecamatan.index',  compact('kecamatan', 'bpp'));
+        return view('admin.kecamatan.index',  compact('kecamatan'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_kecamatan' => 'required|unique:kecamatans',
-            'nama_kecamatan' => 'required',
-        ],[
-
-            'id_kecamatan.unique' => 'kecamatan sudah terdaftar!',
+            'id_kecamatan' => 'required|unique:kecamatan',
+            'nama_kecamatan' => 'required|unique:kecamatan',
         ]);
 
         if ($validator->passes()) {
@@ -49,7 +45,6 @@ class KecamatanController extends Controller
             Kecamatan::create([
                 'id_kecamatan'=>$request->id_kecamatan,
                 'nama_kecamatan'=>$request->nama_kecamatan,
-                'bpp_id'=>$request->bpp_id,
             ]);
 
             return response()->json(['message' => 'Data berhasil disimpan!']);
@@ -59,7 +54,7 @@ class KecamatanController extends Controller
 
     public function edit($id)
     {
-        $kecamatan = Kecamatan::with(['bpp'])->findOrFail($id);
+        $kecamatan = Kecamatan::findOrFail($id);
 
         return response()->json(['data' => $kecamatan]);
     }
@@ -67,13 +62,12 @@ class KecamatanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_kecamatan' => 'required',
+            'nama_kecamatan' => 'required|unique:kecamatan',
         ]);
 
         if ($validator->passes()) {
             Kecamatan::findOrFail($id)->update([
-                'nama_kecamatan' => $request->nama_siswa,
-                'kecamatan_id' => $request->kecamatan_id,
+                'nama_kecamatan' => $request->nama_kecamatan,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);

@@ -36,9 +36,8 @@ class PenyuluhController extends Controller
         }
 
         $penyuluh = Penyuluh::all();
-        $bpp = Bpp::all();
 
-        return view('admin.penyuluh.index', compact('bpp', 'penyuluh'));
+        return view('admin.penyuluh.index', compact( 'penyuluh'));
     }
 
     /**
@@ -50,8 +49,7 @@ class PenyuluhController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-           // 'id_penyuluh' => 'required|unique:penyuluhs',
-            'nip' => 'required|unique:penyuluhs',
+            'nip' => 'required|unique:penyuluh',
             'username' => 'required|unique:users',
             'nama_penyuluh' => 'required',
             'jenis_kelamin' => 'required',
@@ -69,12 +67,10 @@ class PenyuluhController extends Controller
 
                 Penyuluh::create([
                     'user_id' => $user->id,
-                    'id_penyuluh' =>  'PPL'.Str::upper(Str::random(5)),
                     'nip' => $request->nip,
                     'nama_penyuluh' => $request->nama_penyuluh,
                     'jenis_kelamin' => $request->jenis_kelamin,
                     'jabatan' => $request->jabatan,
-                    'bpp_id'=>$request->bpp_id,
                     
                 ]);
              });
@@ -92,7 +88,7 @@ class PenyuluhController extends Controller
      */
     public function edit($id)
     {
-        $penyuluh = Penyuluh::with(['bpp'])->findOrFail($id);
+        $penyuluh = Penyuluh::findOrFail($id);
         return response()->json(['data' => $penyuluh]);
     }
 
@@ -113,10 +109,9 @@ class PenyuluhController extends Controller
 
         if ($validator->passes()) {
             Penyuluh::findOrFail($id)->update([
-                'nama_penyuluh' => $request->nama_siswa,
+                'nama_penyuluh' => $request->nama_penyuluh,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'jabatan' => $request->alamat,
-                'bpp_id' => $request->bpp_id,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);

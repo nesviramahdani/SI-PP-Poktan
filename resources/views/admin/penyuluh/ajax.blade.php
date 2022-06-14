@@ -23,7 +23,6 @@ function resetForm(){
     $("[name='username']").val("")
     $("[name='nama_penyuluh']").val("")
     $("[name='jenis_kelamin']").val("")
-    $("[name='bpp_id']").val("")
     $("[name='jabatan']").val("")
 }
 
@@ -71,7 +70,6 @@ $("body").on("click", ".btn-edit", function() {
       $("#nama_penyuluh_edit").val(response.data.nama_penyuluh)
       $("#nip_edit").val(response.data.nip)
       $("#jenis_kelamin_edit").val(response.data.jenis_kelamin)
-      $("#bpp_id_edit").val(response.data.bbp_id)
       $("#jabatan_edit").val(response.data.jabatan)
       $("#editModal").modal("show")
     },

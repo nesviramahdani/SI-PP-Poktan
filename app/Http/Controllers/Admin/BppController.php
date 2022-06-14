@@ -23,11 +23,9 @@ class BppController extends Controller
         if ($request->ajax()) {
             return $datatable->data();    
         }
-
-        $kecamatan= Kecamatan::all();
         $bpp = Bpp::all();
         
-        return view('admin.bpp.index', compact('kecamatan', 'bpp'));
+        return view('admin.bpp.index', compact('bpp'));
     }
 
     // public function index(Request $request){
@@ -52,35 +50,40 @@ class BppController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_bpp' => 'required|unique:bpps',
-            'nama_bpp' => 'required',
-        ],[
-            'id_bpp.required' => 'ID BPP tidak boleh kosong!',
-            'id_bpp.unique' => 'ID BPP sudah terdaftar!',
-            'nama_bpp.required' => 'nama BPP tidak boleh kosong!',
+            'id_bpp' => 'required|unique:bpp',
+            'nama_bpp' => 'required|unique:bpp',
         ]);
 
-      
-            
+       if ($validator->passes()) {
             Bpp::create($request->all());
-
-            return response()->json(['message' => 'Data berhasil disimpan!']);
-    
+            return response()->json(['message' => 'Data berhasil disimpan!']);  
+        }
+       
+      return response()->json(['error' => $validator->errors()->all()]);   
     }
 
     public function edit($id)
     {
-        $bpp = Bpp::findOrFail($id);
-
-        return response()->json(['data' => $bpp]);
+        $wkpp = Bpp::findOrFail($id);
+        return response()->json(['data' => $wkpp]);
     }
 
     public function update(Request $request, $id)
     {
-        Bpp::findOrFail($id)->update([
-            'nama_bpp' => $request->nama_bpp,
-        ]); 
-        return response()->json(['message' => 'Data berhasil diupdate!']); 
+         $validator = Validator::make($request->all(), [
+             'nama_bpp' => 'required',
+         ]);
+
+        if ($validator->passes()) {
+            Bpp::findOrFail($id)->update([
+                'nama_bpp' => $request->nama_bpp,
+            ]);
+
+            return response()->json(['message' => 'Data berhasil diupdate!']);
+         }
+
+    
+        return response()->json(['error' => $validator->errors()->all()]);
     }
 
     public function destroy($id)

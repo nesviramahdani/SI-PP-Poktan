@@ -5,7 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Admin;
-use App\Models\KelompokTani;
+use App\Models\Bantuan;
+use App\Models\Kelompoktani;
+use App\Models\Bpp;
+use App\Models\Kecamatan;
+use App\Models\Wkpp;
+use App\Models\Komoditas;
+use App\Models\Penyuluh;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
@@ -201,6 +207,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'delete-kelompok-tani',
         ]);
 
+        $role2 = Role::create([
+            'name' => 'admin'
+        ]);
+
         $role1->syncPermissions([
             'create-users', 'read-users', 'update-users', 'delete-users',
             'create-roles', 'read-roles', 'update-roles', 'delete-roles',
@@ -209,13 +219,14 @@ class DatabaseSeeder extends Seeder
             'create-wkpp', 'read-wkpp', 'update-wkpp', 'delete-wkpp', 
             'create-bpp', 'read-bpp', 'update-bpp', 'delete-bpp', 
             'create-bantuan', 'read-bantuan', 'update-bantuan', 'delete-bantuan', 
+            'create-komoditas', 'read-komoditas', 'update-komoditas', 'delete-komoditas', 
             'create-anggota', 'read-anggota', 'update-anggota', 'delete-anggota', 
             'create-penyuluh', 'read-penyuluh', 'update-penyuluh', 'delete-penyuluh', 
             'create-kelompok-tani', 'read-kelompok-tani', 'update-kelompok-tani', 'delete-kelompok-tani', 
         ]);
 
         $role2 = Role::create([
-            'name' => 'admin'
+            'name' => 'penyuluh'
         ]);
 
         $role2->syncPermissions([
@@ -230,7 +241,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'kelompok tani'
         ]);
 
-        
 
     	$user1 = User::create([
     		'username' => 'admin123',
@@ -240,27 +250,112 @@ class DatabaseSeeder extends Seeder
 
         $user1->assignRole('admin');
 
-        // $petugas1 = Admin::create([
-        //     'user_id' => $user1->id,
-        //     'id_admin' => 'PTG'.Str::upper(Str::random(5)),
-        //     'nama_admin' => 'Administrator',
-        // ]);
-
+       
 		$user2 = User::create([
-    		'username' => 'elaina123',
-    		'email' => 'elaina@example.com',
+    		'username' => 'penyuluh123',
+    		'email' => 'penyuluh@example.com',
     		'password' => Hash::make('password'),
     	]);
 
-        $user2->assignRole('admin');
+        $user2->assignRole('penyuluh');
 
-        // $petugas2 = Admin::create([
-        //     'user_id' => $user2->id,
-        //     'id_admin' => 'PTG'.Str::upper(Str::random(5)),
-        //     'nama_admin' => 'Elaina San',
-        // ]);
+        Penyuluh::create([
+            'user_id' => $user2->id,
+            'nip' => '197503302003121001',
+            'nama_penyuluh' => 'Penyuluh',
+            'jenis_kelamin' => 'Perempuan',
+            'jabatan' => 'Ketua',
+        ]);
 
-    	
-        // \App\Models\User::factory(10)->create();
+        // seed BPP
+        Bpp::create([
+            'id_bpp' => 'BPP01',
+            'nama_bpp' => 'BPP Marapallam',
+        ]);
+        Bpp::create([
+            'id_bpp' => 'BPP02',
+            'nama_bpp' => 'BPP Nanggalo',
+        ]);
+        Bpp::create([
+            'id_bpp' => 'BPP03',
+            'nama_bpp' => 'BPP Koto Tangah',
+        ]);
+        Bpp::create([
+            'id_bpp' => 'BPP04',
+            'nama_bpp' => 'BPP 12',
+        ]);
+
+        // seed WKPP
+        Wkpp::create([
+            'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
+            'nama_wkpp' => 'Padang Timur',
+        ]);
+        Wkpp::create([
+            'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
+            'nama_wkpp' => 'Padang Selatan',
+        ]);
+        Wkpp::create([
+            'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
+            'nama_wkpp' => 'Batu Gadang',
+        ]);
+        Wkpp::create([
+            'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
+            'nama_wkpp' => 'Indarung',
+        ]);
+
+        // seed Kecamatan
+        Kecamatan::create([
+            'id_kecamatan' => 'KEC01',
+            'nama_kecamatan' => 'Padang Timur',
+        ]);
+        Kecamatan::create([
+            'id_kecamatan' => 'KEC02',
+            'nama_kecamatan' => 'Padang Selatan',
+        ]);
+        Kecamatan::create([
+            'id_kecamatan' => 'KEC03',
+            'nama_kecamatan' => 'Lubuk Begalung',
+        ]);
+        Kecamatan::create([
+            'id_kecamatan' => 'KEC04',
+            'nama_kecamatan' => 'Pauh',
+        ]);
+
+        // seed Komoditas
+        komoditas::create([
+            'id_komoditas' => 'KDT'.Str::upper(Str::random(5)),
+            'nama_komoditas' => 'Padi',
+        ]);
+        Komoditas::create([
+            'id_komoditas' => 'KDT'.Str::upper(Str::random(5)),
+            'nama_komoditas' => 'Jagung',
+        ]);
+        Komoditas::create([
+            'id_komoditas' => 'KDT'.Str::upper(Str::random(5)),
+            'nama_komoditas' => 'Kedelai',
+        ]);
+        Komoditas::create([
+            'id_komoditas' => 'KDT'.Str::upper(Str::random(5)),
+            'nama_komoditas' => 'Kacang Tanah',
+        ]);
+
+        // seed Bantuan
+        Bantuan::create([
+            'id_bantuan' => 'BTN'.Str::upper(Str::random(5)),
+            'jenis_bantuan' => 'lainnya..',
+        ]);
+        Bantuan::create([
+            'id_bantuan' => 'BTN'.Str::upper(Str::random(5)),
+            'jenis_bantuan' => 'Alat',
+        ]);
+        Bantuan::create([
+            'id_bantuan' => 'BTN'.Str::upper(Str::random(5)),
+            'jenis_bantuan' => 'Bibit',
+        ]);
+        Bantuan::create([
+            'id_bantuan' => 'BTN'.Str::upper(Str::random(5)),
+            'jenis_bantuan' => 'Pupuk',
+        ]);
+
     }
 }

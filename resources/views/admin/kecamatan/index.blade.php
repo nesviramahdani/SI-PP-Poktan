@@ -26,6 +26,7 @@
           <thead>
           <tr>
             <th>No</th>
+            <th>ID</th>
             <th>Nama kecamatan</th>
             <th>Aksi</th>
           </tr>
@@ -33,6 +34,7 @@
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -70,15 +72,6 @@
             <label for="nama_kecamatan_create">Nama kecamatan:</label>
             <input required type="" name="nama_kecamatan" id="nama_kecamatan_create" class="form-control">
           </div>
-          <div class="form-group">
-                <label for="bpp_id">Bpp:</label>
-                <select required="" name="bpp_id" id="bpp_id" class="form-control select2bs4">
-                  <option disabled="" selected="">- PILIH BPP -</option>
-                  @foreach($bpp as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                  @endforeach
-                </select>
-              </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
@@ -116,14 +109,6 @@
             <label for="nama_kecamatan_edit">Nama kecamatan:</label>
             <input required type="hidden" readonly="" name="id" id="id_edit" class="form-control">
             <input type="" name="nama_kecamatan" id="nama_kecamatan_edit" class="form-control">
-          </div>
-          <div class="form-group">
-                <label for="bpp_id_edit">BPP:</label>
-                <select required="" name="bpp_id" id="bpp_id_edit" class="form-control">
-                  @foreach($bpp as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                  @endforeach
-                </select>
           </div>
       </div>
       <div class="modal-footer">

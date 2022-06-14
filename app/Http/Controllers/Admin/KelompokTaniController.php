@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\KelompokTani;
+use App\Models\Kelompoktani;
 use App\Models\Kecamatan;
 use App\Models\Wkpp;
 use App\Models\Penyuluh;
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\KelompokTaniDataTable;
-use App\Models\Kelas;
+use App\Models\Bpp;
 
-class KelompokTaniController extends Controller
+class KelompoktaniController extends Controller
 {
     public function __construct()
     {
@@ -32,18 +32,19 @@ class KelompokTaniController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, KelompokTaniDataTable $datatable)
+    public function index(Request $request, KelompoktaniDataTable $datatable)
     {
         if ($request->ajax()) {
             return $datatable->data();
         }
 
-        $kelompokTani = KelompokTani::all();
-       // $kecamatan = Kecamatan::all();
+        $kelompoktani = Kelompoktani::all();
+        $kecamatan = Kecamatan::all();
         $wkpp = Wkpp::all();
-        //$penyuluh = Penyuluh::all();
+        $penyuluh = Penyuluh::all();
+        $bpp = Bpp::all();
 
-        return view('admin.kelompok-tani.index', compact('kelompokTani', 'wkpp'));
+        return view('admin.kelompok-tani.index', compact('kelompoktani', 'wkpp', 'bpp', 'penyuluh', 'kecamatan'));
     }
 
     /**
@@ -55,38 +56,27 @@ class KelompokTaniController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_kelompok' => 'required',
-            'username' => 'required|unique:users',
+            'nama_kelompoktani' => 'required',
             'jumlah_anggota' =>'required',
             'luas_lahan' =>'required',
-            'tanggal_kelompok' =>'required',
-            'kelas_kelompok' => 'required',
-            'badan_hukum' => 'required',
-            'alamat_sekretariat' => 'required',
+            'penyuluh_id' =>'required',
+            'wkpp_id' => 'required',
+            'bpp_id' => 'required',
+            'kecamatan_id' => 'required',
         ]);
 
         if ($validator->passes()) {
-            DB::transaction(function() use($request){
-                $user = User::create([
-                    'username' => Str::lower($request->username),
-                    'password' => Hash::make('kelompoktani'),
-                ]);
-
-                $user->assignRole('kelompok tani');
-
             KelompokTani::create([
-                'user_id' => $user->id,
-                'id_kelompok' => $request->id_kelompok,
-                'nama_kelompok' =>$request->nama_kelompok,
+                'id_kelompoktani' =>'POKTAN'.Str::upper(Str::random(5)),
+                'nama_kelompoktani' =>$request->nama_kelompoktani,
                 'jumlah_anggota' =>$request->jumlah_anggota,
                 'luas_lahan' =>$request->luas_lahan,
-                'tanggal_kelompok' =>$request->tanggal_kelompok,
-                'kelas_kelompok' => $request->kelas_kelompok,
-                'badan_hukum' => $request->badan_hukum,
-                'alamat_sekretariat' => $request->alamat_sekretariat,
+                'penyuluh_id' =>$request->penyuluh_id,
                 'wkpp_id' => $request->wkpp_id,
+                'bpp_id' => $request->bpp_id,
+                'kecamatan_id' => $request->kecamatan_id,
             ]);
-        });
+        
             return response()->json(['message' => 'Data berhasil disimpan!']);   
         }
 
@@ -101,8 +91,8 @@ class KelompokTaniController extends Controller
      */
     public function edit($id)
     {
-        $kelompokTani = KelompokTani::with(['wkpp'])->findOrFail($id);
-        return response()->json(['data' => $kelompokTani]);
+        $kelompoktani = KelompokTani::with(['wkpp', 'bpp', 'kecamatan', 'penyuluh'])->findOrFail($id);
+        return response()->json(['data' => $kelompoktani]);
     }
 
     /**
@@ -115,27 +105,21 @@ class KelompokTaniController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_kelompok' => 'required',
-            'username' => 'required|unique:users',
+            'nama_kelompoktani' => 'required',
             'jumlah_anggota' =>'required',
             'luas_lahan' =>'required',
-            'tanggal_kelompok' =>'required',
-            'kelas_kelompok' => 'required',
-            'badan_hukum' => 'required',
-            'alamat_sekretariat' => 'required',
             
         ]);
 
         if ($validator->passes()) {
             KelompokTani::findOrFail($id)->update([
-                'nama_kelompok' => $request->nama_kelompok,
+                'nama_kelompoktani' => $request->nama_kelompoktani,
                 'jumlah_anggota' => $request->jumlah_anggota,
                 'luas_lahan' => $request->luas_lahan,
-                'tanggal_kelompok' => $request->kelas_kelompok,
-                'kelas_kelompok' => $request->kelas_kelompok,
-                'badan_hukum' => $request->badan_hukum,
-                'alamat_sekretariat' => $request->alamat_sekretariat,
+                'penyuluh_id' => $request->penyuluh_id,
                 'wkpp_id' => $request->wkpp_id,
+                'bpp_id' => $request->bpp_id,
+                'kecamatan_id' => $request->kecamatan_id,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);
@@ -152,9 +136,7 @@ class KelompokTaniController extends Controller
      */
     public function destroy($id)
     {
-        $kelompokTani = KelompokTani::findOrFail($id);
-        User::findOrFail($kelompokTani->user_id)->delete();
-        $kelompokTani->delete();
+       KelompokTani::findOrFail($id)->delete();
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 }

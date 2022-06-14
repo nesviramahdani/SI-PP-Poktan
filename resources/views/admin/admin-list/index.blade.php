@@ -12,12 +12,6 @@
 <x-alert></x-alert>
 <div class="row">
   <div class="col-lg-6">
-    <div class="callout callout-danger">
-        <h5>Pemberitahuan!</h5>
-
-        <p>Admin adalah petugas yang memiliki akses penuh aplikasi , 
-        mengakses data Admin sama dengan mengakses data petugas yang bersangkutan.</p>
-      </div>
   </div>
   <div class="col-12">
     <div class="card">
@@ -34,7 +28,7 @@
           <tr>
             <th>No</th>
             <th>Username</th>
-            <th>Nama Petugas</th>
+            <th>Nama Admin</th>
             <th>Aksi</th>
           </tr>
           </thead>
@@ -76,8 +70,8 @@
             <input required="" type="text" name="username" id="username" class="form-control">
           </div>
           <div class="form-group">
-            <label for="nama_petugas">Nama Petugas:</label>
-            <input required="" type="text" name="nama_petugas" id="nama_petugas" class="form-control">
+            <label for="nama_admin">Nama Admin:</label>
+            <input required="" type="text" name="nama_admin" id="nama_admin" class="form-control">
           </div>
       </div>
       <div class="modal-footer">
@@ -108,9 +102,9 @@
             <ul></ul>
           </div>
           <div class="form-group">
-            <label for="nama_petugas_edit">Nama Petugas:</label>
+            <label for="nama_admin_edit">Nama Admin:</label>
             <input required="" type="hidden" readonly="" name="id" id="id_edit" class="form-control">
-            <input required="" type="text" name="nama_petugas" id="nama_petugas_edit" class="form-control">
+            <input required="" type="text" name="nama_admin" id="nama_admin_edit" class="form-control">
           </div>
       </div>
       <div class="modal-footer">

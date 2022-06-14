@@ -2,18 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Admin;
 use \Yajra\Datatables\Datatables;
 
 class AdminListDataTable
 {
 	public function data()
 	{
-        $data = User::with(['roles', 'petugas'])
-            ->whereHas('roles', function($query) {
-                $query->where('roles.name', 'admin');
-            })->get();
-
+		$data = Admin::with(['user'])->latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

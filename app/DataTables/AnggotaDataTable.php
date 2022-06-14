@@ -9,7 +9,7 @@ class AnggotaDataTable
 {
 	public function data()
 	{
-		$data = Anggota::with(['kelompokTani'])->latest();
+		$data = Anggota::with(['kelompoktani'])->latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

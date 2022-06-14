@@ -87,15 +87,6 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="bpp_id">BPP:</label>
-                <select required="" name="bpp_id" id="bpp_id" class="form-control select2bs4">
-                  <option disabled="" selected="">- PILIH BPP -</option>
-                  @foreach($bpp as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="jabatan">Jabatan:</label>
                 <select required="" name="jabatan" id="jabatan" class="form-control select2bs4">
                     <option disabled="" selected="">- PILIH JABATAN -</option>
@@ -152,14 +143,6 @@
                 <select required="" name="jenis_kelamin" id="jenis_kelamin_edit" class="form-control">
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="bpp_id_edit">BPP:</label>
-                <select required="" name="bpp_id" id="bpp_id_edit" class="form-control">
-                  @foreach($bpp as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                  @endforeach
                 </select>
               </div>
               <div class="form-group">

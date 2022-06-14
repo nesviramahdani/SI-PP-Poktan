@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Admin;
-use App\Models\Siswa;
+use App\Models\Anggota;
 use App\Models\Penyuluh;
 
 class User extends Authenticatable
@@ -51,19 +51,13 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function siswa()
-    {
-        return $this->hasOne(Siswa::class);
-    }
-
-
     public function penyuluh()
     {
         return $this->hasOne(Penyuluh::class);
     }
 
-    public function kelompoktani()
+    public function anggota()
     {
-        return $this->hasOne(KelompokTani::class);
+        return $this->hasOne(Anggota::class);
     }
 }

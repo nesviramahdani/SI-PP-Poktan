@@ -9,12 +9,8 @@ use App\Models\Penyuluh;
 class Wkpp extends Model
 {
     use HasFactory;
+    protected $table = 'wkpp';
     protected $guarded = [];
-
-    public function penyuluh()
-    {
-    	return $this->belongsTo(Penyuluh::class);
-    }
 
     public function kelompokTani()
     {

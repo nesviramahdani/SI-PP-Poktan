@@ -8,10 +8,9 @@ $(function () {
       ajax: "{{ route('kelompok-tani.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
-          {data: 'nama_kelompok', name: 'nama_kelompok'},
+          {data: 'nama_kelompoktani', name: 'nama_kelompoktani'},
           {data: 'jumlah_anggota', name: 'jumlah_anggota'},
           {data: 'luas_lahan', name: 'luas_lahan'},
-          {data: 'alamat_sekretariat', name: 'alamat_sekretariat'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -20,12 +19,10 @@ $(function () {
 
 // Reset Form
   function resetForm(){
-      $("[name='id_kelompok']").val("")
-      $("[name='nama_kelompok']").val("")
-      $("[name='kelas_kelompok']").val("")
-      $("[name='badan_hukum']").val("")
-      $("[name='alamat_sekretariat']").val("")
-      $("[name='username']").val("")
+      $("[name='id_kelompoktani']").val("")
+      $("[name='nama_kelompoktani']").val("")
+      $("[name='jumlah_anggota']").val("")
+      $("[name='luas_lahan']").val("")
   }
 
 // create
@@ -78,11 +75,14 @@ $("body").on("click", ".btn-edit", function() {
     method: "GET",
     success: function(response) {
       $("#id_edit").val(response.data.id)
-      $("#id_kelompok_edit").val(response.data.id_kelompok)
-      $("#nama_kelompok_edit").val(response.data.nama_kelompok)
-      $("#kelas_kelompok_edit").val(response.data.kelas_kelompok)
-      $("#badan_hukum_edit").val(response.data.badan_hukum)
-      $("#alamat_sekretariat_edit").val(response.data.alamat_sekretariat)
+      $("#id_kelompoktani_edit").val(response.data.id_kelompoktani)
+      $("#nama_kelompoktani_edit").val(response.data.nama_kelompoktani)
+      $("#jumlah_anggota_edit").val(response.data.jumlah_anggota)
+      $("#luas_lahan_edit").val(response.data.luas_lahan)
+      $("#penyuluh_id_edit").val(response.data.penyuluh_id)
+      $("#wkpp_id_edit").val(response.data.wkpp_id)
+      $("#bpp_id_edit").val(response.data.bpp_id)
+      $("#kecamatan_id_edit").val(response.data.kecamatan_id)
       $("#editModal").modal("show")
     },
     error: function(err) {
