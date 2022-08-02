@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\kelompoktani;
+use App\Models\Wkpp;
 
 
 class Penyuluh extends Model
@@ -19,11 +19,15 @@ class Penyuluh extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function kelompoktani()
+    public function wkpp()
     {
-        return $this->hasmany(kelompoktani::class);
+        return $this->hasmany(Wkpp::class);
     }
    
+    public function bpp()
+    {
+        return $this->belongsTo(Bpp::class);
+    }
 
 
 }

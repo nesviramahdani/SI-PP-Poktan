@@ -12,24 +12,47 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header">
-      </div>
       <!-- /.card-header -->
       <div class="card-body">
         <table id="dataTable2" class="table table-bordered table-striped">
           <thead>
           <tr>
             <th>No</th>
-            <th>Nama BPP</th>
-            <th>Aksi</th>
+            <th>Tanggal Pengajuan</th>
+            <th>File</th>
+            <th>Status</th>
+
           </tr>
           </thead>
+          @php
+          $no=1;
+          @endphp
           <tbody>
-          <tr>
-          	<td></td>
-            <td></td>
-            <td></td>
-          </tr>
+              @foreach($pengajuan as $row)
+              <tr>
+                  <th scope="row">{{ $no++ }}</th>
+                  <td>{{ $row->created_at }}</td>
+                  <td><a href="{{ asset('app/public/proposal/'.$row->proposal) }}" stream="">{{ $row->proposal }}</a></td>
+                  <td>
+                    @if ($row->status == 0)
+                    <span class="float badge bg-info">Belum Diverifikasi</span>
+                    
+                      <form action="{{ route('pengajuan.destroy', $row->id) }}" method="POST" style="display: inline">
+      
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-trash"></i> </button>
+                      </form>
+                    
+                    @elseif ($row->status == 1)
+                    <span class="float badge bg-primary">Diverifikasi</span>
+                    @elseif ($row->status == 2)
+                    <span class="float badge bg-success">Diterima</span>
+                    @elseif ($row->status == 3)
+                    <span class="float badge bg-danger">Ditolak</span>
+                    @endif
+                  </td>
+              </tr>
+              @endforeach
           </tbody>
         </table>
       </div>
@@ -40,6 +63,25 @@
   <!-- /.col -->
 </div>
 <!-- /.row -->
-
-
 @stop
+@push('js')
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script>
+  $(function () {
+    $('#dataTable2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  }); 
+  
+</script>
+@endpush

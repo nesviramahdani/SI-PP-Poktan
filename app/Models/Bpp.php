@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Kelompoktani;
+use App\Models\Penyuluh;
 
 
 class Bpp extends Model
@@ -13,9 +13,9 @@ class Bpp extends Model
     protected $table = 'bpp';
     protected $guarded = [];
 
-    public function kelompoktani()
+    public function penyuluh()
     {
-        return $this->hasmany(kelompoktani::class);
+        return $this->hasmany(Penyuluh::class);
     }
    
 }

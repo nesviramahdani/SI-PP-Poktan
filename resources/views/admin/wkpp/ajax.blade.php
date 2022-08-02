@@ -10,6 +10,7 @@ $(function () {
           {data: 'DT_RowIndex' , name: 'id'},
           {data: 'id_wkpp', name: 'id_wkpp'},
           {data: 'nama_wkpp', name: 'nama_wkpp'},
+          {data: 'penyuluh.nama_penyuluh', name: 'penyuluh.nama_penyuluh'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });

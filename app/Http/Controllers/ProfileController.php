@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelompoktani;
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
+
 class ProfileController extends Controller
 {
 	public function index()
-	{
+	{	
 		return view('profile');
 	}
 
@@ -44,4 +47,5 @@ class ProfileController extends Controller
 			return back()->with('error', 'Password baru tidak boleh sama dengan password sekarang');
 		}
 	}
+
 }

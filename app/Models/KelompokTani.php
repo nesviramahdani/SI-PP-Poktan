@@ -5,11 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Produksi;
-use App\Models\Jadwal;
-use App\Models\Penyuluh;
+use App\Models\User;
 use App\Models\Wkpp;
-use App\Models\Bpp;
-use App\Models\Kecamatan;
 use App\Models\Anggota;
 use App\Models\Pengajuan;
 
@@ -19,9 +16,9 @@ class Kelompoktani extends Model
     protected $table = 'kelompoktani';
     protected $guarded = [];
 
-    public function penyuluh()
+    public function user()
     {
-        return $this->belongsTo(Penyuluh::class);
+        return $this->belongsTo(User::class);
     }
 
     public function wkpp()
@@ -29,24 +26,14 @@ class Kelompoktani extends Model
         return $this->belongsTo(Wkpp::class);
     }
 
-    public function bpp()
-    {
-        return $this->belongsTo(Bpp::class);
-    }
-
-    public function kecamatan()
-    {
-        return $this->belongsTo(Kecamatan::class);
-    }
-
     public function produksi()
     {
         return $this->hasMany(Produksi::class);
     }
 
-    public function jadwal()
+    public function detail()
     {
-        return $this->hasMany(Jadwal::class);
+        return $this->hasMany(Detailkegiatan::class, 'kelompoktani_id', 'id');
     }
 
     public function anggota()
@@ -56,6 +43,6 @@ class Kelompoktani extends Model
 
     public function pengajuan()
     {
-        return $this->hasMany(Pengajuan::class);
+        return $this->hasMany(Pengajuan::class, 'kelompoktani_id', 'id' );
     }
 }

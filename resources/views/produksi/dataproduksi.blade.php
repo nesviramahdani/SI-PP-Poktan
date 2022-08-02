@@ -16,47 +16,37 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('exportpdf') }}" class="btn btn-danger btn-sm">Export PDF</a>
+                <a href="{{ route('exportpdf')}}" class="btn btn-danger btn-sm">Export PDF</a>
                 <a href="{{ route('exportexcel') }}" class="btn btn-success btn-sm">Export Excel</a>
-                
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('produksi.dataproduksi') }}" method="GET" >
-                    <input type="search" name="search">
-                    <button type="submit">Search</button>
-                </form>
-                <br>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kelompok Tani</th>
-                            <th>Komoditas</th>
-                            <th>Jumlah Produksi</th>
-                            <th>Luas Lahan</th>
-                            <th>Tanggal</th>
-                        </tr>
-                    </thead>
-                    @php
-                    $no=1;
-                    @endphp
-                    <tbody>
-                        @foreach($dataproduksi as $row)
-                        <tr>
-                            <th scope="row">{{ $no++ }}</th>
-                            <td>{{ $row->kelompoktani->nama_kelompoktani }}</td>
-                            <td>{{ $row->komoditas->nama_komoditas }}</td>
-                            <td>{{ $row->jumlah_produksi }}</td>
-                            <td>{{ $row->luas_tanam }}</td>
-                            <td>{{ $row->tanggal_produksi }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                <table id="dataTable2" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Kelompok Tani</th>
+                    <th scope="col">Komoditas</th>
+                    <th scope="col">Jumlah Produksi(ton)</th>
+                    <th scope="col">Luas Lahan(Ha)</th>
+                    <th scope="col">Tanggal Produksi</th>
+                    <th>Penyuluh</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  </tbody>
                 </table>
-                <br>
-                {{ $dataproduksi->links() }}
-            </div>
+              </div>
             
             <!-- /.card-body -->
         </div>
@@ -66,3 +56,35 @@
 </div>
 <!-- /.row -->
 @stop
+
+@push('js')
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- Sweetalert 2 -->
+<script type="text/javascript" src="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script>
+$(function () {
+  
+  var table = $("#dataTable2").DataTable({
+      processing: true,
+      serverSide: true,
+      "responsive": true,
+      searchable: true,
+      ajax: "{{ route('produksi.dataproduksi') }}",
+      columns: [
+          {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'kelompoktani.nama_kelompoktani', name: 'kelompoktani.nama_kelompoktani'},
+          {data: 'komoditas.nama_komoditas', name: 'komoditas.nama_komoditas'},
+          {data: 'jumlah_produksi', name: 'jumlah_produksi'},
+          {data: 'luas_tanam', name: 'luas_tanam'},
+          {data: 'tanggal_produksi', name: 'tanggal_produksi'},
+          {data: 'kelompoktani.wkpp.penyuluh.nama_penyuluh', name: 'kelompoktani.wkpp.penyuluh.nama_penyuluh'},
+      ]
+  });
+
+});
+</script>
+@endpush

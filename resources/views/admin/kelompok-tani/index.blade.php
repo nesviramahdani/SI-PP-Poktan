@@ -28,15 +28,21 @@
                 <table id="dataTable2" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th scope="col sm-">No</th>
+                            <th scope="col">No</th>
+                            <th scope="col">Kode Kelompok</th>
                             <th scope="col">Nama Kelompok</th>
-                            <th scope="col">Jumlah Anggota</th>
-                            <th scope="col">Luas Lahan</th>
+                            <th scope="col">Kelas Kelompok</th>
+                            <th scope="col">Badan Hukum</th>
+                            <th scope="col">Alamat Sekre</th>
+                            <th scope="col">Penyuluh</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -73,41 +79,37 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group">
+                                <label for="id_kelompoktani">Kode Kelompoktani:</label>
+                                <input required="" type="text" name="id_kelompoktani" id="id_kelompoktani" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
                                 <label for="nama_kelompoktani_create">Nama Kelompok:</label>
-                                <input required type="" name="nama_kelompoktani" id="nama_kelompoktani_create"
+                                <input required type="text" name="nama_kelompoktani" id="nama_kelompoktani_create"
                                     class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="jumlah_anggota_create">Jumlah Anggota:</label>
-                                <input required type="" name="jumlah_anggota" id="jumlah_anggota_create"
+                                <label for="tanggal_terbentuk_create">Tanggal Terbentuk:</label>
+                                <input required type="date" name="tanggal_terbentuk" id="tanggal_terbentuk_create"
                                     class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="luas_lahan">Luas Lahan(Ha):</label>
-                                <input required="" type="text" name="luas_lahan" id="luas_lahan" class="form-control">
+                                <label for="username">Username:</label>
+                                <input required="" type="text" name="username" id="username" class="form-control">
                             </div>
                         </div>
+                      
                     </div>
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="penyuluh_id">Penyuluh:</label>
-                                <select required="" name="penyuluh_id" id="penyuluh_id" class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH PENYULUH -</option>
-                                    @foreach($penyuluh as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_penyuluh }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="wkpp_id">WKPP:</label>
-                                <select required="" name="wkpp_id" id="wkpp_id" class="form-control select2bs4">
+                                <label for="wkpp_id_create">WKPP:</label>
+                                <select required="" name="wkpp_id" id="wkpp_id_create" class="form-control select2bs4">
                                     <option disabled="" selected="">- PILIH WKPP -</option>
                                     @foreach($wkpp as $row)
                                     <option value="{{ $row->id }}">{{ $row->nama_wkpp }}</option>
@@ -117,25 +119,34 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="bpp_id">BPP:</label>
-                                <select required="" name="bpp_id" id="bpp_id" class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH BPP -</option>
-                                    @foreach($bpp as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                                    @endforeach
+                                <label for="kelas_kelompok_create">Kelas Kelompok:</label>
+                                <select required="" name="kelas_kelompok" id="kelas_kelompok_create"
+                                    class="form-control select2bs4">
+                                    <option disabled="" selected="">- PILIH KELAS KELOMPOK -</option>
+                                    <option value="Pemula">Pemula</option>
+                                    <option value="Lanjut">Lanjut</option>
+                                    <option value="Madya">Madya</option>
+                                    <option value="Utama">Utama</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="kecamatan_id">KECAMATAN:</label>
-                                <select required="" name="kecamatan_id" id="kecamatan_id"
+                                <label for="badan_hukum_create">Badan Hukum:</label>
+                                <select required="" name="badan_hukum" id="badan_hukum_create"
                                     class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH KECAMATAN -</option>
-                                    @foreach($kecamatan as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_kecamatan }}</option>
-                                    @endforeach
+                                    <option disabled="" selected="">- PILIH BADAN HUKUM -</option>
+                                    <option value="Badan Hukum">Badan Hukum</option>
+                                    <option value="SK Lurah">SK Lurah</option>
+                                    <option value="Belum Ada">Belum Ada</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="alamat_sekretariat_create">Alamat Sekre:</label>
+                                <input required="" type="text" name="alamat_sekretariat" id="alamat_sekretariat_create"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
@@ -186,28 +197,8 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="jumlah_anggota_edit">Jumlah Anggota:</label>
-                                <input type="" name="jumlah_anggota" id="jumlah_anggota_edit" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="luas_lahan_edit">Luas Lahan(Ha):</label>
-                                <input type="" name="luas_lahan" id="luas_lahan_edit" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="penyuluh_id_edit">Penyuluh:</label>
-                                <select required="" name="penyuluh_id" id="penyuluh_id_edit"
-                                    class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH PENYULUH -</option>
-                                    @foreach($penyuluh as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_penyuluh }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="tanggal_terbentuk_edit">Tanggal Terbentuk:</label>
+                                <input type="" name="tanggal_terbentuk" id="tanggal_terbentuk_edit" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -221,27 +212,38 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="bpp_id_edit">BPP:</label>
-                                <select required="" name="bpp_id" id="bpp_id_edit" class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH BPP -</option>
-                                    @foreach($bpp as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_bpp }}</option>
-                                    @endforeach
+                                <label for="kelas_kelompok_edit">Kelas Kelompok:</label>
+                                <select required="" name="kelas_kelompok" id="kelas_kelompok_edit"
+                                    class="form-control select2bs4">
+                                    <option disabled="" selected="">- PILIH KELAS KELOMPOK -</option>
+                                    <option value="Pemula">Pemula</option>
+                                    <option value="Lanjut">Lanjut</option>
+                                    <option value="Madya">Madya</option>
+                                    <option value="Utama">Utama</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label for="kecamatan_id_edit">KECAMATAN:</label>
-                                <select required="" name="kecamatan_id" id="kecamatan_id_edit"
+                                <label for="badan_hukum_edit">Badan Hukum:</label>
+                                <select required="" name="badan_hukum" id="badan_hukum_edit"
                                     class="form-control select2bs4">
-                                    <option disabled="" selected="">- PILIH KECAMATAN -</option>
-                                    @foreach($kecamatan as $row)
-                                    <option value="{{ $row->id }}">{{ $row->nama_kecamatan }}</option>
-                                    @endforeach
+                                    <option disabled="" selected="">- PILIH BADAN HUKUM -</option>
+                                    <option value="Badan Hukum">Badan Hukum</option>
+                                    <option value="SK Lurah">SK Lurah</option>
+                                    <option value="Belum Ada">Belum Ada</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="alamat_sekretariat_edit">Alamat Sekre:</label>
+                                <input required="" type="text" name="alamat_sekretariat" id="alamat_sekretariat_edit"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>

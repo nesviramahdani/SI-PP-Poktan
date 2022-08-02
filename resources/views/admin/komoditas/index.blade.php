@@ -65,6 +65,10 @@
             <ul></ul>
           </div>
           <div class="form-group">
+            <label for="id_komoditas_create">Kode Komoditas:</label>
+            <input required type="" name="id_komoditas" id="id_komoditas_create" class="form-control">
+          </div>
+          <div class="form-group">
             <label for="nama_komoditas_create">Nama Komoditas:</label>
             <input required type="" name="nama_komoditas" id="nama_komoditas_create" class="form-control">
           </div>

@@ -6,7 +6,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Admin;
-use App\Models\Anggota;
+use App\Models\Kelompoktani;
 use App\Models\Penyuluh;
 
 class Universe
@@ -22,9 +22,9 @@ class Universe
 	}
 
 
-	public static function anggota()
+	public static function kelompoktani()
 	{
-		return Anggota::where('user_id', Auth::user()->id)->first(); 
+		return Kelompoktani::where('user_id', Auth::user()->id)->first(); 
 	}
 
 	public static function bulanAll()

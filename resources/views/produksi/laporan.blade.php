@@ -20,7 +20,7 @@
 						<input type="date" name="tanggal_selesai" required="" class="form-control" id="tanggal_selesai">
 					</div>
 					<div class="form-group">
-						<a href="" onclick= "this.href='/penyuluh/produksi-cetaklaporan/' + document.getElementById('tanggal_mulai').value + '/'+ document.getElementById('tanggal_selesai').value" target="_blank"   class="btn btn-danger btn-sm"><i class="fas fa-print fa-fw"></i> PRINT</a>
+						<a href="" onclick= "this.href='/produksi/produksi-cetaklaporan/' + document.getElementById('tanggal_mulai').value + '/'+ document.getElementById('tanggal_selesai').value" target="_blank"   class="btn btn-danger btn-sm"><i class="fas fa-print fa-fw"></i> PRINT</a>
 						
 					</div>
 				</form>

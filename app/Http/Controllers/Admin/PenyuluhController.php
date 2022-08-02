@@ -23,7 +23,6 @@ class PenyuluhController extends Controller
         $this->middleware(['permission:update-penyuluh'])->only(['edit', 'update']);
         $this->middleware(['permission:delete-penyuluh'])->only(['destroy']);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,9 +34,10 @@ class PenyuluhController extends Controller
             return $datatable->data();
         }
 
+        $bpp = Bpp::all();
         $penyuluh = Penyuluh::all();
 
-        return view('admin.penyuluh.index', compact( 'penyuluh'));
+        return view('admin.penyuluh.index', compact( 'penyuluh', 'bpp'));
     }
 
     /**
@@ -49,29 +49,26 @@ class PenyuluhController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nip' => 'required|unique:penyuluh',
             'username' => 'required|unique:users',
             'nama_penyuluh' => 'required',
-            'jenis_kelamin' => 'required',
-            'jabatan' => 'required',
         ]);
 
         if ($validator->passes()) {
             DB::transaction(function() use($request){
                 $user = User::create([
                     'username' => Str::lower($request->username),
-                    'password' => Hash::make('penyuluh'),
+                    'password' => Hash::make('password'),
                 ]);
 
                 $user->assignRole('penyuluh');
 
                 Penyuluh::create([
                     'user_id' => $user->id,
-                    'nip' => $request->nip,
+                    'id_penyuluh' => 'PPL'.Str::upper(Str::random(5)),
+                    'bpp_id' => $request->bpp_id,
                     'nama_penyuluh' => $request->nama_penyuluh,
-                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'nip' => $request->nip,
                     'jabatan' => $request->jabatan,
-                    
                 ]);
              });
 
@@ -103,15 +100,15 @@ class PenyuluhController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_penyuluh' => 'required',
-            'jenis_kelamin' => 'required',
+            'bpp_id' => 'required',
             'jabatan' => 'required',
         ]);
 
         if ($validator->passes()) {
             Penyuluh::findOrFail($id)->update([
                 'nama_penyuluh' => $request->nama_penyuluh,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'jabatan' => $request->alamat,
+                'bpp_id' => $request->bpp_id,
+                'jabatan' => $request->jabatan,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);

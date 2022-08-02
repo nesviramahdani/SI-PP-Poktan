@@ -9,7 +9,9 @@ class KelompoktaniDataTable
 {
 	public function data()
 	{
-		$data = Kelompoktani::with(['wkpp', 'bpp', 'kecamatan', 'penyuluh'])->latest();
+		$data = Kelompoktani::with(['wkpp' => function($query){
+                        $query->with('penyuluh');
+                    }])->latest();
 		return DataTables::of($data)
 			->addIndexColumn()
             ->addColumn('action', function($row) {

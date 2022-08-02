@@ -17,39 +17,34 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
-                Isikan Data
+               <h5> Isikan Data</h5>
             </div>
             <form method="POST" action="{{ route('pengajuan.store') }}" enctype="multipart/form-data">
+                
                 @csrf
                 <div class="card-body">
+					<label for="proposal_create">Upload File Proposal:</label>
                     <div class="form-group">
-                        <label for="bantuan_id_create">Jenis Bantuan:</label>
-                        <select required="" name="bantuan_id" id="bantuan_id_create" class="form-control">
-                            <option disabled="" selected="">- PILIH JENIS BANTUAN -</option>
-                            @foreach($bantuan as $row)
-                            <option value="{{ $row->id }}">{{ $row->jenis_bantuan}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-					<label for="proposal_create">Upload File:</label>
-                    <div class="input-group">
                         <input type="file" name="proposal" required="" id="proposal_create" class="form-control">
                     </div>
-					<br>
+                    <label for="keterangan_create">Keterangan:</label>
+                    <div class="from-group">
+                
+                       <textarea name="keterangan" id="keterangan" cols="140" rows="5" placeholder="Isikan nama dan no hp yang bisa dihubungi. "></textarea>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save fa-fw"></i>
                             SUBMIT
                         </button>
                     </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
 
-</div>
-
-
-
 
 @stop
+
+@include('sweetalert::alert')

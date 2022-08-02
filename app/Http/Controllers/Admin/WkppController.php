@@ -8,17 +8,11 @@ use App\Models\Wkpp;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\WkppDataTable;
+use App\Models\Penyuluh;
 
 class WkppController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['permission:read-wkpp'])->only(['index', 'show']);
-        $this->middleware(['permission:create-wkpp'])->only(['create', 'store']);
-        $this->middleware(['permission:update-wkpp'])->only(['edit', 'update']);
-        $this->middleware(['permission:delete-wkpp'])->only(['destroy']);
-    }
-
+   
     public function index(Request $request, WkppDataTable $datatable)
     {
         if ($request->ajax()) {
@@ -26,7 +20,8 @@ class WkppController extends Controller
         }
 
         $wkpp = Wkpp::all();
-        return view('admin.wkpp.index', compact('wkpp'));
+        $penyuluh = Penyuluh::all();
+        return view('admin.wkpp.index', compact('wkpp', 'penyuluh'));
     }
 
     public function store(Request $request)
@@ -39,6 +34,7 @@ class WkppController extends Controller
         Wkpp::create([
             'id_wkpp' => 'WKPP'.Str::upper(Str::random(5)),
             'nama_wkpp' => $request->nama_wkpp,
+            'penyuluh_id' => $request->penyuluh_id,
         ]);
 
             return response()->json(['message' => 'Data berhasil disimpan!']);  

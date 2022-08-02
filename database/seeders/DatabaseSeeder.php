@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'delete-kelompok-tani',
         ]);
 
-        $role2 = Role::create([
+        $role1 = Role::create([
             'name' => 'admin'
         ]);
 
@@ -238,7 +238,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $role3 = Role::create([
-            'name' => 'kelompok tani'
+            'name' => 'kelompoktani'
+        ]);
+        $role3->syncPermissions([
+            'create-users', 'read-users', 'update-users', 'delete-users',
+            'create-roles', 'read-roles', 'update-roles', 'delete-roles',
+            'create-permissions', 'read-permissions', 'update-permissions', 'delete-permissions',
+            'create-kecamatan', 'read-kecamatan', 'update-kecamatan', 'delete-kecamatan', 
+            'create-wkpp', 'read-wkpp', 'update-wkpp', 'delete-wkpp', 
         ]);
 
 
@@ -258,6 +265,14 @@ class DatabaseSeeder extends Seeder
     	]);
 
         $user2->assignRole('penyuluh');
+
+        $user3 = User::create([
+    		'username' => 'petani123',
+    		'email' => 'penyuluh@example.com',
+    		'password' => Hash::make('password'),
+    	]);
+
+        $user3->assignRole('kelompoktani');
 
         Penyuluh::create([
             'user_id' => $user2->id,

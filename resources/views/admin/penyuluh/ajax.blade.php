@@ -10,7 +10,9 @@ $(function () {
           {data: 'DT_RowIndex' , name: 'id'},
           {data: 'nama_penyuluh', name: 'nama_penyuluh'},
           {data: 'nip', name: 'nip'},
-          {data: 'jenis_kelamin', name: 'jenis_kelamin'},
+          {data: 'bpp.nama_bpp', name: 'bpp.nama_bpp'},
+          {data: 'jabatan', name: 'jabatan'},
+          
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -22,7 +24,6 @@ function resetForm(){
     $("[name='nip']").val("")
     $("[name='username']").val("")
     $("[name='nama_penyuluh']").val("")
-    $("[name='jenis_kelamin']").val("")
     $("[name='jabatan']").val("")
 }
 
@@ -69,7 +70,7 @@ $("body").on("click", ".btn-edit", function() {
       $("#id_edit").val(response.data.id)
       $("#nama_penyuluh_edit").val(response.data.nama_penyuluh)
       $("#nip_edit").val(response.data.nip)
-      $("#jenis_kelamin_edit").val(response.data.jenis_kelamin)
+      $("#bpp_id_edit").val(response.data.bpp_id)
       $("#jabatan_edit").val(response.data.jabatan)
       $("#editModal").modal("show")
     },

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Kelompoktani;
+use App\Models\Kehadiran;
 
 
 class Anggota extends Model
@@ -18,9 +19,9 @@ class Anggota extends Model
         return $this->belongsTo(Kelompoktani::class);
     }
 
-    public function user()
+    public function kehadiran()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(kehadiran::class);
     }
 
 }

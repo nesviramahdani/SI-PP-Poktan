@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Kelompoktani;
-use App\Models\Periode;
+
+
 
 class Kegiatan extends Model
 {
@@ -14,14 +14,9 @@ class Kegiatan extends Model
 
     protected $guarded = [];
 
-    public function kelompoktani()
+    public function detail()
     {
-        return $this->belongsTo(Kelompoktani::class);
-    }
-
-    public function periode()
-    {
-        return $this->belongsTo(Periode::class);
+        return $this->hasMany(Detailkegiatan::class, 'kegiatan_id', 'id');
     }
 
 }

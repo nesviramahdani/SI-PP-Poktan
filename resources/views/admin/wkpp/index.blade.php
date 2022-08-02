@@ -13,12 +13,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-      @can('create-wkpp')
       	<a href="javascript:void(0)" class="btn btn-primary btn-sm" 
         data-toggle="modal" data-target="#createModal">
           <i class="fas fa-plus fa-fw"></i> Tambah Data
         </a>
-      @endcan
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -28,12 +26,14 @@
             <th>No</th>
             <th>ID</th>
             <th>Nama wkpp</th>
+            <th>Penyuluh</th>
             <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -68,6 +68,15 @@
             <label for="nama_wkpp_create">Nama wkpp:</label>
             <input required type="" name="nama_wkpp" id="nama_wkpp_create" class="form-control">
           </div>
+          <div class="form-group">
+            <label for="penyuluh_id">Penyuluh:</label>
+            <select required="" name="penyuluh_id" id="penyuluh_id" class="form-control select2bs4">
+                <option disabled="" selected="">- PILIH PENYULUH -</option>
+                @foreach($penyuluh as $row)
+                <option value="{{ $row->id }}">{{ $row->nama_penyuluh }}</option>
+                @endforeach
+            </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>

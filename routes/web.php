@@ -20,15 +20,115 @@ Route::get('/', function(){
 
 Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home.index');
+	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+});
+
+Route::prefix('produksi')->middleware(['auth', 'role:admin|penyuluh'])->group(function(){
+	Route::get('produksi-laporan', 'ProduksiController@laporan')->name('produksi.laporan');
+	Route::get('produksi-cetaklaporan/{tanggal_mulai}/{tanggal_selesai}', 'ProduksiController@cetaklaporan')->name('produksi.cetaklaporan');
+	Route::get('exportpdf', 'ProduksiController@exportpdf')->name('exportpdf');
+	Route::get('exportexcel', 'ProduksiController@exportexcel')->name('exportexcel');
+	Route::get('dataproduksi', 'ProduksiController@dataproduksi')->name('produksi.dataproduksi');
 });
 
 Route::prefix('admin')
-->namespace('Admin')
 ->middleware(['auth'])
 ->group(function(){
 	Route::middleware(['role:admin'])->group(function(){
-		Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
-		Route::get('admin-list', 'AdminListController@index')->name('admin-list.index');
+		Route::resource('kecamatan', 'KecamatanController');
+		Route::resource('wkpp', 'WkppController');
+		Route::resource('bpp', 'BppController');
+		Route::resource('penyuluh', 'PenyuluhController');
+		Route::resource('kelompok-tani', 'KelompoktaniController');
+		Route::resource('komoditas', 'KomoditasController');
+
+	});
+
+	Route::middleware(['role:admin|penyuluh'])->group(function(){
+	Route::resource('anggota', 'AnggotaController');
+	Route::get('tampil-laporan/{id}', 'LaporanKegiatanController@tampil')->name('laporan-kegiatan.tampil');	
+
+	});
+	//menampilkan seluruh kegiatan kelompoktani
+	Route::get('laporanKegiatan', 'KegiatanController@laporanKegiatan')->name('kegiatan.laporanKegiatan');
+	//filter laporan kegiatan
+	Route::get('laporanKegiatan/filter', 'LaporanKegiatanController@filter')->name('laporan-kegiatan.filter');
+	//mencetak laporan kegiatan per periode
+	Route::get('laporanKegiatan-laporan', 'LaporanKegiatanController@periode')->name('laporan-kegiatan.periode');
+	Route::get('laporanKegiatan-cetaklaporan/{tanggal_mulai}/{tanggal_selesai}', 'LaporanKegiatanController@cetaklaporan')->name('laporan-kegiatan.cetaklaporan');
+	//export pdf
+	Route::get('laporanKegiatan-exportpdf', 'LaporanKegiatanController@exportpdf')->name('laporanKegiatan.exportpdf');
+	//export excel
+	Route::get('laporanKegiatan-exportexcel', 'LaporanKegiatanController@exportexcel')->name('laporanKegiatan.exportexcel');
+
+	Route::get('pengajuan-bantuan', 'PengajuanController@datapengajuan')->name('pengajuan.datapengajuan');
+	Route::post('/pengajuan-bantuan/hapus/{id}', 'PengajuanController@hapus')->name('pengajuan.hapus');
+	Route::get('pengajuan-bantuan/{id}/download', 'PengajuanController@download')->name('pengajuan.download');
+	Route::get('/pengajuan/edit/{id}', 'PengajuanController@edit')->name('pengajuan.edit');
+	Route::post('/pengajuan/update/{id}', 'PengajuanController@update')->name('pengajuan.update');
+	Route::post('/pengajuan/status', 'PengajuanController@status')->name('pengajuan.status');
+
+});
+
+
+Route::prefix('penyuluh')
+->middleware(['auth', 'role:penyuluh'])
+->group(function(){
+
+	Route::resource('produksi', 'ProduksiController');	
+
+	//membuat jadwal Kegiatan
+	Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan.index');
+	Route::get('/kegiatan/tambah', 'KegiatanController@create')->name('kegiatan.create');
+	Route::post('/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
+	Route::get('/kegiatan/ubah/{id}', 'KegiatanController@edit')->name('kegiatan.edit');
+	Route::post('/kegiatan/update/{id}', 'KegiatanController@update')->name('kegiatan.update');
+	//mencetak jadwal rencana kegiatan berdasarkan periode
+	Route::get('kegiatan-cetakKegiatan/{tanggal_mulai}/{tanggal_selesai}', 'KegiatanController@cetakKegiatan')->name('kegiatan.cetakKegiatan');	
+	//melihat laporan kegiatan kelompoktani 
+	Route::get('laporan-kegiatan', 'LaporanKegiatanController@p_laporankegiatan')->name('laporan-kegiatan.p_laporankegiatan');
+	//mencetak laporan kegiatan kelompoktani berdasarkan periode
+	Route::get('laporan-kegiatan/{tanggal_mulai}/{tanggal_selesai}', 'LaporanKegiatanController@p_cetaklaporan_kegiatan')->name('laporan-kegiatan.p_cetaklaporan_kegiatan');
+	//melihat data kelompok tani bimbingannya
+	Route::get('data-kelompoktani', 'KelompoktaniController@datakelompoktani')->name('kelompoktani. datakelompoktani');
+});
+
+Route::prefix('kelompoktani')
+->middleware(['auth', 'role:kelompoktani'])
+->group(function(){
+
+Route::get('/anggota', 'AnggotaController@anggota')->name('anggota.anggota');
+
+//Pengajuan Bantuan
+	//input pengajuan bantuan
+	Route::get('/pengajuan', 'PengajuanController@index')->name('pengajuan.index');
+	Route::post('/pengajuan', 'PengajuanController@store')->name('pengajuan.store');
+	//lihat status pengajuan bantuan
+	Route::get('/pengajuan/history', 'PengajuanController@history')->name('pengajuan.history');
+	Route::post('/pengajuan-bantuan/destroy/{id}', 'PengajuanController@destroy')->name('pengajuan.destroy');
+
+//Kegiatan
+	//lihat jadwal kegiatan
+	Route::get('/Kegiatan', 'KegiatanController@kegiatanpetani')->name('kegiatan.kegiatanpetani');
+	//input laporan kegiatan
+	Route::get('/kegiatan/laporkan/{id}', 'LaporanKegiatanController@index')->name('laporan-kegiatan.index');
+	Route::post('/kegiatan/laporan/{id}', 'LaporanKegiatanController@store')->name('laporan-kegiatan.store');
+	//lihat laporan kegiatan
+	Route::get('/LaporanKegiatan', 'LaporanKegiatanController@laporan')->name('laporan-kegiatan.laporan');
+	Route::get('/LaporanKegiatan/lihat/{id}', 'LaporanKegiatanController@lihat')->name('laporan-kegiatan.lihat');
+	
+});
+
+Route::prefix('profile')
+->name('profile.')
+->middleware(['auth'])
+->group(function(){
+	Route::get('/', 'ProfileController@index')->name('index');
+	Route::patch('/', 'ProfileController@update')->name('update');
+});
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+	Route::get('admin-list', 'AdminListController@index')->name('admin-list.index');
 		Route::get('admin-list/create', 'AdminListController@create')->name('admin-list.create');
 		Route::post('admin-list', 'AdminListController@store')->name('admin-list.store');
 		Route::get('admin-list/{id}/edit', 'AdminListController@edit')->name('admin-list.edit');
@@ -47,52 +147,10 @@ Route::prefix('admin')
 		Route::get('user-permission', 'UserPermissionController@index')->name('user-permission.index');
 		Route::get('user-permission/create/{id}', 'UserPermissionController@create')->name('user-permission.create');
 		Route::post('user-permission/create/{id}', 'UserPermissionController@store')->name('user-permission.store');
-
-		Route::resource('kecamatan', 'KecamatanController');
-		Route::resource('wkpp', 'WkppController');
-		Route::resource('bpp', 'BppController');
-		Route::resource('bantuan', 'BantuanController');
-		Route::resource('penyuluh', 'PenyuluhController');
-		Route::resource('anggota', 'AnggotaController');
-		Route::resource('kelompok-tani', 'KelompoktaniController');
-		Route::resource('komoditas', 'KomoditasController');
-
-	});
-});
-
-
-Route::prefix('penyuluh')
-->middleware(['auth', 'role:penyuluh'])
-->group(function(){
-
-	Route::resource('produksi', 'ProduksiController');	
-	Route::get('produksi-laporan', 'ProduksiController@laporan')->name('produksi.laporan');
-	Route::get('produksi-cetaklaporan/{tanggal_mulai}/{tanggal_selesai}', 'ProduksiController@cetaklaporan')->name('produksi.cetaklaporan');
-	Route::get('exportpdf', 'ProduksiController@exportpdf')->name('exportpdf');
-	Route::get('exportexcel', 'ProduksiController@exportexcel')->name('exportexcel');
-	Route::get('dataproduksi', 'ProduksiController@dataproduksi')->name('produksi.dataproduksi');
-
-	Route::resource('jadwal', 'JadwalController');	
-});
-
-Route::prefix('kelompoktani')
-->middleware(['auth', 'role:kelompok tani'])
-->group(function(){
-	Route::get('/pengajuan', 'PengajuanController@index')->name('pengajuan.index');
-	Route::post('/pengajuan', 'PengajuanController@store')->name('pengajuan.store');
-	Route::get('/pengajuan/history', 'PengajuanController@history')->name('pengajuan.history');
+		
 	
-	Route::get('/jadwalKegiatan', 'KegiatanController@jadwal')->name('kegiatan.jadwal');
-	Route::get('/LaporanKegiatan', 'KegiatanController@laporan')->name('kegiatan.laporan');
 });
 
-Route::prefix('profile')
-->name('profile.')
-->middleware(['auth'])
-->group(function(){
-	Route::get('/', 'ProfileController@index')->name('index');
-	Route::patch('/', 'ProfileController@update')->name('update');
-});
 
 
 

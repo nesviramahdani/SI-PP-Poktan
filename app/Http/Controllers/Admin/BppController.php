@@ -10,13 +10,13 @@ use App\DataTables\BppDataTable;
 
 class BppController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['permission:read-bpp'])->only(['index', 'show']);
-        $this->middleware(['permission:create-bpp'])->only(['create', 'store']);
-        $this->middleware(['permission:update-bpp'])->only(['edit', 'update']);
-        $this->middleware(['permission:delete-bpp'])->only(['destroy']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['permission:read-bpp'])->only(['index', 'show']);
+    //     $this->middleware(['permission:create-bpp'])->only(['create', 'store']);
+    //     $this->middleware(['permission:update-bpp'])->only(['edit', 'update']);
+    //     $this->middleware(['permission:delete-bpp'])->only(['destroy']);
+    // }
 
     public function index(Request $request, BppDataTable $datatable)
     {
@@ -27,25 +27,6 @@ class BppController extends Controller
         
         return view('admin.bpp.index', compact('bpp'));
     }
-
-    // public function index(Request $request){
-    //     // panggil model artikel dan relasi dengan model kategori
-    //     $bpps = Bpp::with('kecamatan')->get();
-        
-    //     // buat variabel array
-    //     $data = [];
-
-    //     // looping $artikels dan masukkan data ke dalam $data
-    //     foreach($bpps as $key => $bpp){
-    //         $data[$key]['nama_bpp'] = $bpp->nama_bpp;
-    //         $data[$key]['nama_kecamatan'] =  $bpp->kecamatans->nama_kecamatan;
-    //         //$data[$key]['konten'] = Str::limit($artikel->content,100);
-    //        // $data[$key]['created_at'] = Carbon::parse($artikel->created_at)->isoFormat('D MMMM Y');
-    //     }
-
-    //         return datatables()->of($data)->make();
-    //     }
-    
 
     public function store(Request $request)
     {
@@ -71,7 +52,7 @@ class BppController extends Controller
     public function update(Request $request, $id)
     {
          $validator = Validator::make($request->all(), [
-             'nama_bpp' => 'required',
+            'nama_bpp' => 'required|unique:bpp',
          ]);
 
         if ($validator->passes()) {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Penyuluh;
+use App\Models\Kelompoktani;
 
 class Wkpp extends Model
 {
@@ -12,8 +13,13 @@ class Wkpp extends Model
     protected $table = 'wkpp';
     protected $guarded = [];
 
-    public function kelompokTani()
+    public function kelompoktani()
     {
-    	return $this->hasMany(KelompokTani::class);
+    	return $this->hasMany(Kelompoktani::class);
+    }
+
+    public function penyuluh()
+    {
+    	return $this->belongsTo(Penyuluh::class);
     }
 }

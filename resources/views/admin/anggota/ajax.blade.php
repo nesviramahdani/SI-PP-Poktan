@@ -10,6 +10,8 @@ $(function () {
           {data: 'DT_RowIndex' , name: 'id'},
           {data: 'nama_anggota', name: 'nama_anggota'},
           {data: 'nik', name: 'nik'},
+          {data: 'nohp', name: 'nohp'},
+          {data: 'jabatan', name: 'jabatan'},
           {data: 'jenis_kelamin', name: 'jenis_kelamin'},
           {data: 'luas_lahan', name: 'luas_lahan'},
           {data: 'kelompoktani.nama_kelompoktani', name: 'kelompoktani.nama_kelompoktani'},
@@ -69,8 +71,10 @@ $("body").on("click", ".btn-edit", function() {
     method: "GET",
     success: function(response) {
       $("#id_edit").val(response.data.id)
+      $("#id_anggota_edit").val(response.data.id_anggota)
       $("#nama_anggota_edit").val(response.data.nama_anggota)
       $("#nik_edit").val(response.data.nik)
+      $("#nohp_edit").val(response.data.nohp)
       $("#kelompoktani_id_edit").val(response.data.kelompoktani_id)
       $("#jabatan_edit").val(response.data.jabatan)
       $("#jenis_kelamin_edit").val(response.data.jenis_kelamin)

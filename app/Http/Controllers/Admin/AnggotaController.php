@@ -55,28 +55,19 @@ class AnggotaController extends Controller
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
             'luas_lahan' => 'required',
-            'username' => 'required|unique:users',
         ]);
 
         if ($validator->passes()) {
-            DB::transaction(function() use($request){
-                $user = User::create([
-                    'username' => Str::lower($request->username),
-                    'password' => Hash::make('kelompoktani'),
-                ]);
-
-                $user->assignRole('kelompok tani');
-
                 Anggota::create([
-                    'user_id' => $user->id,
+                    'id_anggota' =>'AGT'.Str::upper(Str::random(5)),
                     'nik' => $request->nik,
                     'nama_anggota' => $request->nama_anggota,
                     'jenis_kelamin' => $request->jenis_kelamin,
+                    'nohp' => $request->nohp,
                     'jabatan' => $request->jabatan,
                     'luas_lahan' => $request->luas_lahan,
                     'kelompoktani_id' => $request->kelompoktani_id,
                 ]);
-            });
 
             return response()->json(['message' => 'Data berhasil disimpan!']);   
         }
@@ -125,7 +116,6 @@ class AnggotaController extends Controller
     public function destroy($id)
     {
         $anggota = Anggota::findOrFail($id);
-        User::findOrFail($anggota->user_id)->delete();
         $anggota->delete();
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }

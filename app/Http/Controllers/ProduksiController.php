@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Komoditas;
 use App\Models\Kelompoktani;
 use App\Models\Produksi;
+use App\Models\Wkpp;
+use App\Models\Penyuluh;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,7 @@ use App\Exports\ProduksiExport;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade as PDF;
 use Maatwebsite\Excel\Facades\Excel;
-
+use \Yajra\Datatables\Datatables;
 
 class ProduksiController extends Controller
 {
@@ -37,11 +39,15 @@ class ProduksiController extends Controller
         }
 
             $produksi = Produksi::all();
-            $kelompoktani = Kelompoktani::all();
+            $wkpp_id = collect([]);
+            $wkpp = Wkpp::where('penyuluh_id', Auth::user()->penyuluh->id)->get();
+            foreach($wkpp as $new){
+                $wkpp_id->push($new->id);
+        }
+            $kelompoktani = Kelompoktani::whereIn('wkpp_id', $wkpp_id)->get();
             $komoditas = Komoditas::all();
-		
-
-        return view('produksi.indexx', compact('produksi', 'kelompoktani', 'komoditas'));
+           
+        return view('produksi.indexx', compact('produksi',  'komoditas', 'kelompoktani'));
     }
 
     public function store(Request $request)
@@ -103,12 +109,13 @@ class ProduksiController extends Controller
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 
+    
     public function exportpdf()
     {
         $data = Produksi::all();
         view()->share('data', $data);
         $pdf = PDF::loadview('produksi.dataproduksi-pdf');
-        return $pdf->download('dataproduksi.pdf');
+        return $pdf->stream('dataproduksi.pdf');
     }
 
     public function exportexcel()
@@ -121,27 +128,48 @@ class ProduksiController extends Controller
         return view ('produksi.laporan');
     }
 
+    // public function showProduksi($tanggal_mulai, $tanggal_selesai)
+    // {
+    //    // dd($tanggal_mulai, $tanggal_selesai);
+    //     // $cetakproduksi = Produksi::with('kelompoktani', 'komoditas')
+    //     // ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])->get();
+    //     $cetakproduksi = Produksi::all();
+    //     return view('produksi.cetaklaporan', compact('cetakproduksi'));
+    // }
+
     public function cetaklaporan($tanggal_mulai, $tanggal_selesai)
     {
-        // dd(["Tanggal awal :".$tanggal_mulai, "Tanggal selesai:".$tanggal_selesai]);
+//dd(["Tanggal awal :".$tanggal_mulai, "Tanggal selesai:".$tanggal_selesai]);
         $cetakproduksi = Produksi::with('kelompoktani', 'komoditas')
-        ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])->get();
-        view()->share('cetakproduksi', $cetakproduksi);
-        $pdf = PDF::loadview('produksi.cetaklaporan');
-        return $pdf->download('dataproduksi.pdf');
+        ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])->orderBy('tanggal_produksi', 'asc')->get();
+        //view()->share('cetakproduksi', $cetakproduksi);
+        $pdf = PDF::loadview('produksi.cetaklaporan', compact('cetakproduksi'));
+        return $pdf->stream('dataproduksi.pdf');
       }
 
       public function dataproduksi(Request $request)
       {
          
-        if($request->has('search')){
-            $dataproduksi = Produksi::where('nama_kelompoktani', 'LIKE', '%'.$request->search.'%')
-            ->orWhere('nama_komoditas', 'LIKE', '%'.$request->search.'%')
-            ->paginate(5);
-        }
-        else{
-            $dataproduksi = Produksi::paginate(5);
-        }
-          return view('produksi.dataproduksi', compact('dataproduksi'));
-      }
+    //     if($request->has('search')){
+    //         $dataproduksi = Produksi::where('nama_kelompoktani', 'LIKE', '%'.$request->search.'%')
+    //         ->orWhere('nama_komoditas', 'LIKE', '%'.$request->search.'%')
+    //         ->paginate(5);
+    //     }
+    //     else{
+    //         $dataproduksi = Produksi::paginate(5);
+    //     }
+    //       return view('produksi.dataproduksi', compact('dataproduksi'));
+
+            if ($request->ajax()) {
+                $data = Produksi::with(['kelompoktani' => function($query){
+                    $query->with(['wkpp' => function($query){
+                        $query->with('penyuluh');}]);
+                }, 'komoditas'])->latest();
+                return DataTables::of($data)
+                     ->addIndexColumn()
+                     ->make(true);
+            }
+            return view('produksi.dataproduksi');
+    
+    }
 }

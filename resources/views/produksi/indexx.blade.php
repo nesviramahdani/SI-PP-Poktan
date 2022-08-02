@@ -24,18 +24,19 @@
         <table id="dataTable2" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>No</th>
-            <th>Kelompok Tani</th>
-            <th>Komoditas</th>
-            <th>Jumlah Produksi</th>
-            <th>Luas Lahan</th>
-            <th>Tahun</th>
-            <th>Aksi</th>
+            <th scope="col">No</th>
+            <th scope="col">Kelompok Tani</th>
+            <th scope="col">Komoditas</th>
+            <th scope="col">Jumlah Produksi(ton)</th>
+            <th scope="col">Luas Lahan(Ha)</th>
+            <th scope="col">Tanggal Produksi</th>
+            <th scope="col">Aksi</th>
           </tr>
           </thead>
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -69,10 +70,6 @@
             <ul></ul>
           </div>
           <div class="form-group">
-            <label for="id_produksi_create">ID:</label>
-            <input required type="" name="id_produksi" id="id_produksi_create" class="form-control">
-          </div>
-          <div class="form-group">
                 <label for="kelompoktani_id_create">Kelompok Tani:</label>
                 <select required="" name="kelompoktani_id" id="kelompoktani_id_create" class="form-control">
                 <option disabled="" selected="">- PILIH KELOMPOK TANI -</option>
@@ -91,15 +88,15 @@
                 </select>
            </div>
           <div class="form-group">
-            <label for="jumlah_produksi_create">Jumlah:</label>
+            <label for="jumlah_produksi_create">Jumlah(ton):</label>
             <input required type="" name="jumlah_produksi" id="jumlah_produksi_create" class="form-control">
           </div>
           <div class="form-group">
-            <label for="luas_tanam_create">Luas Tanam:</label>
+            <label for="luas_tanam_create">Luas Tanam(Ha):</label>
             <input required type="" name="luas_tanam" id="luas_tanam_create" class="form-control">
           </div>
           <div class="form-group">
-            <label for="tanggal_produksi_create">Tahun:</label>
+            <label for="tanggal_produksi_create">Tanggal Produksi:</label>
             <input required type="date" name="tanggal_produksi" id="tanggal_produksi_create" class="form-control">
           </div>
       </div>

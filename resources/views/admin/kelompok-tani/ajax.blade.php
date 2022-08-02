@@ -8,9 +8,12 @@ $(function () {
       ajax: "{{ route('kelompok-tani.index') }}",
       columns: [
           {data: 'DT_RowIndex' , name: 'id'},
+          {data: 'id_kelompoktani', name: 'id_kelompoktani'},
           {data: 'nama_kelompoktani', name: 'nama_kelompoktani'},
-          {data: 'jumlah_anggota', name: 'jumlah_anggota'},
-          {data: 'luas_lahan', name: 'luas_lahan'},
+          {data: 'kelas_kelompok', name: 'kelas_kelompok'},
+          {data: 'badan_hukum', name: 'badan_hukum'},
+          {data: 'alamat_sekretariat', name: 'alamat_sekretariat'},
+          {data: 'wkpp.penyuluh.nama_penyuluh', name: 'wkpp.penyuluh.nama_penyuluh'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });
@@ -77,12 +80,11 @@ $("body").on("click", ".btn-edit", function() {
       $("#id_edit").val(response.data.id)
       $("#id_kelompoktani_edit").val(response.data.id_kelompoktani)
       $("#nama_kelompoktani_edit").val(response.data.nama_kelompoktani)
-      $("#jumlah_anggota_edit").val(response.data.jumlah_anggota)
-      $("#luas_lahan_edit").val(response.data.luas_lahan)
-      $("#penyuluh_id_edit").val(response.data.penyuluh_id)
+      $("#tanggal_terbentuk_edit").val(response.data.tanggal_terbentuk)
+      $("#kelas_kelompok_edit").val(response.data.kelas_kelompok)
+      $("#badan_hukum_edit").val(response.data.badan_hukum)
+      $("#alamat_sekretariat_edit").val(response.data.alamat_sekretariat)
       $("#wkpp_id_edit").val(response.data.wkpp_id)
-      $("#bpp_id_edit").val(response.data.bpp_id)
-      $("#kecamatan_id_edit").val(response.data.kecamatan_id)
       $("#editModal").modal("show")
     },
     error: function(err) {

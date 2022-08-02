@@ -4,22 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Anggota;
-use App\Models\Bantuan;
+use App\Models\Kelompoktani;
+
 
 class Pengajuan extends Model
 {
     use HasFactory;
-    protected $table = 'pengajuan';
+    protected $table = 'pengajuanbantuan';
     protected $guarded = [];
 
-    public function anggota()
+    public function kelompoktani()
     {
-        return $this->belongsTo(Anggota::class);
+        return $this->hasOne(Kelompoktani::class, 'id', 'kelompoktani_id');
     }
 
-    public function bantuan()
-    {
-        return $this->belongsTo(Bantuan::class);
-    }
 }

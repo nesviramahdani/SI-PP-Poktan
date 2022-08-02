@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kelompoktani;
-use App\Models\Kecamatan;
+
 use App\Models\Wkpp;
 use App\Models\Penyuluh;
 use App\Models\User;
@@ -38,13 +38,12 @@ class KelompoktaniController extends Controller
             return $datatable->data();
         }
 
-        $kelompoktani = Kelompoktani::all();
-        $kecamatan = Kecamatan::all();
+        $kelompoktani = Kelompoktani::all();;
         $wkpp = Wkpp::all();
         $penyuluh = Penyuluh::all();
         $bpp = Bpp::all();
 
-        return view('admin.kelompok-tani.index', compact('kelompoktani', 'wkpp', 'bpp', 'penyuluh', 'kecamatan'));
+        return view('admin.kelompok-tani.index', compact('kelompoktani', 'wkpp', 'bpp', 'penyuluh'));
     }
 
     /**
@@ -56,26 +55,32 @@ class KelompoktaniController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users',
             'nama_kelompoktani' => 'required',
-            'jumlah_anggota' =>'required',
-            'luas_lahan' =>'required',
-            'penyuluh_id' =>'required',
+            'tanggal_terbentuk' =>'required',
             'wkpp_id' => 'required',
-            'bpp_id' => 'required',
-            'kecamatan_id' => 'required',
         ]);
 
         if ($validator->passes()) {
-            KelompokTani::create([
+            DB::transaction(function() use($request){
+                $user = User::create([
+                    'username' => Str::lower($request->username),
+                    'password' => Hash::make('password'),
+                ]);
+
+                $user->assignRole('kelompoktani');
+            Kelompoktani::create([
+                'user_id' => $user->id,
                 'id_kelompoktani' =>'POKTAN'.Str::upper(Str::random(5)),
                 'nama_kelompoktani' =>$request->nama_kelompoktani,
-                'jumlah_anggota' =>$request->jumlah_anggota,
-                'luas_lahan' =>$request->luas_lahan,
-                'penyuluh_id' =>$request->penyuluh_id,
+                'tanggal_terbentuk' =>$request->tanggal_terbentuk,
+                'kelas_kelompok' =>$request->kelas_kelompok,
+                'badan_hukum' =>$request->badan_hukum,
+                'alamat_sekretariat' => $request->alamat_sekretariat,
                 'wkpp_id' => $request->wkpp_id,
-                'bpp_id' => $request->bpp_id,
-                'kecamatan_id' => $request->kecamatan_id,
             ]);
+
+        });
         
             return response()->json(['message' => 'Data berhasil disimpan!']);   
         }
@@ -91,7 +96,7 @@ class KelompoktaniController extends Controller
      */
     public function edit($id)
     {
-        $kelompoktani = KelompokTani::with(['wkpp', 'bpp', 'kecamatan', 'penyuluh'])->findOrFail($id);
+        $kelompoktani = Kelompoktani::with(['wkpp'])->findOrFail($id);
         return response()->json(['data' => $kelompoktani]);
     }
 
@@ -106,20 +111,19 @@ class KelompoktaniController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_kelompoktani' => 'required',
-            'jumlah_anggota' =>'required',
-            'luas_lahan' =>'required',
+            'tanggal_terbentuk' =>'required',
+            'wkpp_id' => 'required',
             
         ]);
 
         if ($validator->passes()) {
             KelompokTani::findOrFail($id)->update([
-                'nama_kelompoktani' => $request->nama_kelompoktani,
-                'jumlah_anggota' => $request->jumlah_anggota,
-                'luas_lahan' => $request->luas_lahan,
-                'penyuluh_id' => $request->penyuluh_id,
+                'nama_kelompoktani' =>$request->nama_kelompoktani,
+                'tanggal_terbentuk' =>$request->tanggal_terbentuk,
+                'kelas_kelompok' =>$request->kelas_kelompok,
+                'badan_hukum' =>$request->badan_hukum,
+                'alamat_sekretariat' => $request->alamat_sekretariat,
                 'wkpp_id' => $request->wkpp_id,
-                'bpp_id' => $request->bpp_id,
-                'kecamatan_id' => $request->kecamatan_id,
             ]);
 
             return response()->json(['message' => 'Data berhasil diupdate!']);
