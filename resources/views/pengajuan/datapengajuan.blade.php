@@ -23,9 +23,9 @@
                             <th>Kelompok Tani</th>
                             <th>Tanggal Pengajuan</th>
                             <th>File</th>
+                            <th>Uraian</th>
                             <th>Status</th>
                             <th>Ket</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +36,7 @@
                             <td>{{ $p->created_at }}</td>
                             <td><a href="{{ asset('app/public/proposal/'.$p->proposal) }}"
                                     stream="">{{ $p->proposal }}</a></td>
+                            <td>{{ $p->keterangan }}</td>
                             <td>
                                 @if ($p->status == 0)
                                 <span class="float badge bg-info">Belum Diverifikasi</span>
@@ -51,7 +52,7 @@
                                         class="fa fa-ellipsis-h"></i></button>
                             </td>
                             <td>{{ $p->keterangan_status }}</td>
-                            <td>
+                            {{-- <td>
                                 <form action="{{ route('pengajuan.hapus', $p->id) }}" method="POST"
                                     style="display: inline">
 
@@ -59,7 +60,7 @@
                                     <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>
                                     </button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

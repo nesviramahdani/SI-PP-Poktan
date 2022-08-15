@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="{{ asset('templates/backend/AdminLTE-3.1.0') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @endpush
-@section('content_title', 'Data Kelompoktani')
+@section('content_title', 'Data Kelompok Tani')
 @section('content')
 <x-alert></x-alert>
 <div class="row">
@@ -21,10 +21,10 @@
             <th>Nama Kelompok</th>
             <th>Jumlah Anggota</th>
             <th>Luas Lahan(Ha)</th>
-            <th>Tanggal Terbentuk</th>
             <th>Kelas Kelompok</th>
             <th>Badan Hukum</th>
-            <th>Lokasi Sekretariat</th>
+            <th>Penyuluh</th>
+            <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
@@ -32,12 +32,18 @@
             <tr>
               <td>{{ $loop->iteration }}.</td>
               <td>{{ $p->nama_kelompoktani }}</td>
-              <td><a href="{{ route('anggotas.dataanggota', $p->id) }}">{{ $p->anggota->count() }} </a></td>
-              <td>{{ $p->anggota->sum('luas_lahan') }}</td>
-              <td>{{ \Carbon\Carbon::parse($p->tanggal_terbentuk)->format('l, d F Y')}}</td>
+              <td align="center"><a href="{{ route('anggotas.dataanggota', $p->id) }}">{{ $p->anggota->count() }} </a></td>
+              <td align="center">{{ $p->anggota->sum('luas_lahan') }}</td>
               <td>{{ $p->kelas_kelompok }}</td>
               <td>{{ $p->badan_hukum}}</td>
-              <td>{{ $p->alamat_sekretariat }}</td>
+              <td>{{ $p->wkpp->penyuluh->nama_penyuluh }}</td>
+              <td class="project-actions text-right">
+                <a class="btn btn-primary btn-sm" href="{{ route('monitoring.show', $p->id) }}">
+                    <i class="fas fa-folder">
+                    </i>
+                    View
+                </a>
+            </td>
             </tr>
             @endforeach
           </tbody>

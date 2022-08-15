@@ -20,6 +20,7 @@
             <th>No</th>
             <th>Tanggal Pengajuan</th>
             <th>File</th>
+            <th>Keterangan</th>
             <th>Status</th>
 
           </tr>
@@ -33,6 +34,7 @@
                   <th scope="row">{{ $no++ }}</th>
                   <td>{{ $row->created_at }}</td>
                   <td><a href="{{ asset('app/public/proposal/'.$row->proposal) }}" stream="">{{ $row->proposal }}</a></td>
+                  <td>{{ $row->keterangan }}</td>
                   <td>
                     @if ($row->status == 0)
                     <span class="float badge bg-info">Belum Diverifikasi</span>

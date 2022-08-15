@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
-@section('title', 'Laporan')
-@section('content_title', 'Laporan')
+@section('title', 'Laporan Produksi')
+@section('content_title', 'Laporan Produksi')
 @section('content')
 <x-alert></x-alert>
 
@@ -30,23 +30,3 @@
 </div>
 @endsection
 
-<!-- @push('js')
-<script>
-	$(document).on("click", "#preview", function(){
-		var tanggal_mulai = $("#tanggal_mulai").val()
-		var tanggal_selesai = $("#tanggal_selesai").val()
-
-		$.ajax({
-			url: "/produksi/laporan/preview-pdf",
-			method: "GET",
-			data: {
-				tanggal_mulai: tanggal_mulai,
-				tanggal_selesai: tanggal_selesai,
-			},
-			success:function(){
-				window.open('/produksi/laporan/preview-pdf')
-			}
-		})
-	})
-</script>
-@endpush -->

@@ -57,7 +57,7 @@
          </tr>
        </table>
        <br>
-       <center><font>Data Produksi pada Dinas Pertanian Kota Padang dari ...sampai...</font></center><br>
+       <center><font>Data Produksi pada Dinas Pertanian Kota Padang dari {{ $data['tanggal_mulai'] }}sampai {{ $data['tanggal_selesai'] }}</font></center><br>
         <table class="table">
             <thead>
                 <tr>
@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($cetakproduksi as $p)
+                @foreach($data['cetakproduksi'] as $p)
                 <tr>
                     <td class="text-center" width="20">{{ $loop->iteration }}</td>
                     <td>{{ $p->kelompoktani->nama_kelompoktani }}</td>

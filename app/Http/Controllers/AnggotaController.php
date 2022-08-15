@@ -126,4 +126,12 @@ class AnggotaController extends Controller
 		$anggota = Anggota::where('kelompoktani_id', $kelompoktani->id)->get();
 		return view('anggota', compact('anggota'));
 	}
+
+    public function dataanggota($id)
+	{
+       $dataanggota = Kelompoktani::find($id);
+		//$dataanggota = Anggota::where('kelompoktani_id', '4')->get();
+       // $dataanggota = Kelompoktani::findOrFail($id);
+        return view ('admin.anggota.dataanggota', compact('dataanggota'));
+	}
 }

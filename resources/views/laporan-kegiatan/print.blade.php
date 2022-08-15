@@ -70,7 +70,7 @@
                 </tr>
             </thead>
             <tbody>
-              @foreach($data['laporankegiatan'] as $row)
+              @foreach($data['kelompoktani'] as $row)
               <tr>
                   <td class="text-center">{{ $loop->iteration }}.</td>
                   <td>{{ $row->kelompoktani->nama_kelompoktani }}</td>

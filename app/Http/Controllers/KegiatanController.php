@@ -101,8 +101,8 @@ class KegiatanController extends Controller
     public function destroy($id)
     {
         $kegiatan= Detailkegiatan::findOrFail($id);
+        Kegiatan::findOrFail($kegiatan->kegiatan_id)->delete();
         $kegiatan->delete();
-
         return redirect('/penyuluh/kegiatan')->withSuccess('Kegiatan berhasil dihapus!');
     }
 
@@ -138,14 +138,30 @@ class KegiatanController extends Controller
     public function laporanKegiatan(){
         $kelompoktani = Kelompoktani::all();
         $penyuluh = Penyuluh::all();
-        $laporanKegiatan = Detailkegiatan::orderBy('updated_at', 'desc')->get();
+        $laporanKegiatan = Detailkegiatan::all();
         return view ('kegiatan.laporanKegiatan', compact('laporanKegiatan', 'kelompoktani', 'penyuluh'));
     }
 
       public function kegiatanpetani(){
           
           $kelompoktani = Kelompoktani::where('user_id', Auth::user()->id)->first();
-          $detail = Detailkegiatan::where('kelompoktani_id', $kelompoktani->id)->get();
+          $detail = Detailkegiatan::where('kelompoktani_id', $kelompoktani->id)->where('status', 0 )->get();
     	return view('kegiatan.kegiatanpetani', compact('detail'));
       }
+
+      public function rencanakegiatan($tanggal_mulai, $tanggal_selesai){
+        $kelompoktani = Kelompoktani::where('user_id', Auth::user()->id)->first();
+        $rencanakegiatan = Detailkegiatan::whereIn('kelompoktani_id', $kelompoktani)
+        ->join('kegiatan', 'detailkegiatan.kegiatan_id', '=' ,'kegiatan.id',)
+            ->whereBetween('kegiatan.tanggal_kegiatan', [$tanggal_mulai, $tanggal_selesai])->where('status','0')->get();
+            $data = [
+                'rencanakegiatan' => $rencanakegiatan,
+                'tanggal_mulai' => $tanggal_mulai,
+                'tanggal_selesai' => $tanggal_selesai,
+            ];
+            $pdf = PDF::loadview('kegiatan.rencanakegiatan', compact('data'));
+            return $pdf->stream('datakegiatan.pdf');
+          }
+
+          
 }

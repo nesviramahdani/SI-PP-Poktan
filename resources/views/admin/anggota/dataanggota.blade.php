@@ -18,26 +18,22 @@
           <thead>
           <tr>
             <th>No</th>
-            <th>Nama Kelompok</th>
-            <th>Jumlah Anggota</th>
-            <th>Luas Lahan(Ha)</th>
-            <th>Tanggal Terbentuk</th>
-            <th>Kelas Kelompok</th>
-            <th>Badan Hukum</th>
-            <th>Lokasi Sekretariat</th>
+            <th>Nama</th>
+            <th>NIK</th>
+            <th>Jenis Kelamin</th>
+            <th>Luas Lahan</th>
+            <th>Jabatan</th>
           </tr>
           </thead>
           <tbody>
-            @foreach ($kelompoktani as $p)
+            @foreach ($dataanggota->anggota as $p)
             <tr>
               <td>{{ $loop->iteration }}.</td>
-              <td>{{ $p->nama_kelompoktani }}</td>
-              <td><a href="{{ route('anggotas.dataanggota', $p->id) }}">{{ $p->anggota->count() }} </a></td>
-              <td>{{ $p->anggota->sum('luas_lahan') }}</td>
-              <td>{{ \Carbon\Carbon::parse($p->tanggal_terbentuk)->format('l, d F Y')}}</td>
-              <td>{{ $p->kelas_kelompok }}</td>
-              <td>{{ $p->badan_hukum}}</td>
-              <td>{{ $p->alamat_sekretariat }}</td>
+              <td>{{ $p->nama_anggota }}</td>
+              <td>{{ $p->nik}}</td>
+              <td>{{ $p->jenis_kelamin }}</td>
+              <td>{{ $p->luas_lahan}}</td>
+              <td>{{ $p->jabatan }}</td>
             </tr>
             @endforeach
           </tbody>

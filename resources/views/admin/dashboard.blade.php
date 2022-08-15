@@ -9,6 +9,22 @@
 @section('content')
 <!-- Small boxes (Stat box) -->
 <div class="row">
+<!-- ./col -->
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+      <div class="inner">
+        <h3>{{ $total_kelompoktani }}</h3>
+
+        <p>Kelompok Tani</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-school"></i>
+      </div>
+      <a href="{{ route('kelompok-tani.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
   <div class="col-lg-3 col-6">
     <!-- small box -->
     <div class="small-box bg-info">
@@ -23,20 +39,18 @@
       <a href="{{ route('anggota.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
-  <!-- ./col -->
-  <!-- ./col -->
   <div class="col-lg-3 col-6">
     <!-- small box -->
-    <div class="small-box bg-danger">
+    <div class="small-box bg-warning">
       <div class="inner">
-        <h3>{{ $total_kelompoktani }}</h3>
+        <h3>{{ $total_penyuluh }}</h3>
 
-        <p>Kelompok Tani</p>
+        <p>Penyuluh</p>
       </div>
       <div class="icon">
-        <i class="fas fa-school"></i>
+        <i class="fas fa-user-secret"></i>
       </div>
-      <a href="{{ route('kelompok-tani.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="{{ route('penyuluh.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <!-- ./col -->
@@ -55,20 +69,7 @@
     </div>
   </div>
   <!-- ./col -->
-  <div class="col-lg-3 col-6">
-    <!-- small box -->
-    <div class="small-box bg-warning">
-      <div class="inner">
-        <h3>{{ $total_penyuluh }}</h3>
-
-        <p>Penyuluh</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-user-secret"></i>
-      </div>
-      <a href="{{ route('penyuluh.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
+ 
 </div>
 <!-- /.row -->
 

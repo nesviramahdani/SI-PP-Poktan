@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\KelompokTaniDataTable;
+use App\Models\Anggota;
 use App\Models\Bpp;
 
 class KelompoktaniController extends Controller
@@ -141,19 +142,20 @@ class KelompoktaniController extends Controller
      */
     public function destroy($id)
     {
-       KelompokTani::findOrFail($id)->delete();
+        $kelompoktani = Kelompoktani::findOrFail($id);
+        User::findOrFail($kelompoktani->user_id)->delete();
+        $kelompoktani->delete();
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 
     public function datakelompoktani()
     {
-   
         $wkpp_id = collect([]);
         $wkpp = Wkpp::where('penyuluh_id', Auth::user()->penyuluh->id)->get();
         foreach($wkpp as $new){
             $wkpp_id->push($new->id);
     }
         $kelompoktani = Kelompoktani::whereIn('wkpp_id', $wkpp_id)->get();
-        return view('admin.kelompok-tani.datakelompoktani', compact('kelompoktani'), [ 'total_anggota' => DB::table('anggota')->count(),]);
+        return view('admin.kelompok-tani.datakelompoktani', compact('kelompoktani'));
     }
 }

@@ -10,13 +10,13 @@ use App\DataTables\BppDataTable;
 
 class BppController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['permission:read-bpp'])->only(['index', 'show']);
-    //     $this->middleware(['permission:create-bpp'])->only(['create', 'store']);
-    //     $this->middleware(['permission:update-bpp'])->only(['edit', 'update']);
-    //     $this->middleware(['permission:delete-bpp'])->only(['destroy']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['permission:read-bpp'])->only(['index', 'show']);
+        $this->middleware(['permission:create-bpp'])->only(['create', 'store']);
+        $this->middleware(['permission:update-bpp'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-bpp'])->only(['destroy']);
+    }
 
     public function index(Request $request, BppDataTable $datatable)
     {

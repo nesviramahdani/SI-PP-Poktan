@@ -45,7 +45,7 @@
                         <li class="nav-item">
                             <a href="{{ route('kelompok-tani.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'kelompok-tani' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-list"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Kelompok Tani
                                 </p>
@@ -55,7 +55,7 @@
                         <li class="nav-item">
                             <a href="{{ route('anggota.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'anggota' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-school"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Anggota
                                 </p>
@@ -65,7 +65,7 @@
                         <li class="nav-item">
                             <a href="{{ route('wkpp.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'wkpp' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     WKPP
                                 </p>
@@ -74,7 +74,7 @@
                         <li class="nav-item">
                             <a href="{{ route('penyuluh.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'penyuluh' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Penyuluh
                                 </p>
@@ -83,7 +83,7 @@
                         <li class="nav-item">
                             <a href="{{ route('bpp.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'bpp' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     BPP
                                 </p>
@@ -92,7 +92,7 @@
                         <li class="nav-item">
                             <a href="{{ route('komoditas.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'komoditas' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Komoditas
                                 </p>
@@ -101,7 +101,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin-list.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'admin-list' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Admin
                                 </p>
@@ -110,7 +110,7 @@
                         <li class="nav-item">
                             <a href="{{ route('user.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'user' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     User
                                 </p>
@@ -120,13 +120,21 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-list"></i>
                         <p>
-                            Kegiatan Poktan
+                           Monitoring Kegiatan 
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('monitoring.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Kelompok Tani
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('kegiatan.laporanKegiatan') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -139,23 +147,29 @@
                                 <p>Cetak Laporan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('laporan-kegiatan.show') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cetak Laporan Petani</p>
+                            </a>
+                        </li>
                     </ul>
                 <li class="nav-item">
-                  <a href="{{ route('pengajuan.datapengajuan') }}" class="nav-link">
-                    <i class="nav-icon fas fa-inbox"></i>
-                    <p>
-                      Pengajuan Bantuan
-                      <?php 
-                            $notifikasi_pengajuan = App\Models\Notifikasi::where('tipe', 1)->where('user_id', Auth::user()->id)->where('status', 2)->get();
+                    <a href="{{ route('pengajuan.datapengajuan') }}" class="nav-link">
+                        <i class="nav-icon fas fa-inbox"></i>
+                        <p>
+                            Pengajuan Bantuan
+                            <?php 
+                            $notifikasi_pengajuan = App\Models\Notifikasi::where('tipe', 1)->where('user_id', Auth::user()->id)->where('status', 0)->get();
                         ?>
-                        @if($notifikasi_pengajuan->count() > 0)
-                      <span class="right badge badge-danger">{{ $notifikasi_pengajuan->count() }}</span>
-                      @endif
-                    </p>
-                  </a>
+                            @if($notifikasi_pengajuan->count() > 0)
+                            <span class="right badge badge-danger">{{ $notifikasi_pengajuan->count() }}</span>
+                            @endif
+                        </p>
+                    </a>
                 </li>
-                 @role('admin|penyuluh')
-                 <li class="nav-item">
+                @role('admin|penyuluh')
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -177,15 +191,15 @@
                             </a>
                         </li>
                     </ul>
-                 @endrole
-                @endrole
+                    @endrole
+                    @endrole
 
-                @role('penyuluh')
-                @role('admin|penyuluh')
+                    @role('penyuluh')
+                    @role('admin|penyuluh')
                 <li class="nav-item">
                     <a href="{{ route('anggota.index') }}"
                         class="nav-link {{ Request::segment(2) == 'anggota' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-school"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Anggota
                         </p>
@@ -203,7 +217,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-list"></i>
                         <p>
                             Kegiatan
                             <i class="fas fa-angle-left right"></i>
@@ -262,7 +276,7 @@
                 @role('admin')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Roles-Permissions
                             <i class="fas fa-angle-left right"></i>
@@ -272,7 +286,7 @@
                         <li class="nav-item">
                             <a href="{{ route('roles.index') }}"
                                 class="nav-link {{ Request::segment(2) == 'roles' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-tie"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Roles List
                                 </p>
@@ -313,38 +327,38 @@
                 @endrole
 
                 @role('kelompoktani')
-                        <li class="nav-item">
-                            <a href="{{ route('kegiatan.kegiatanpetani') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Jadwal Kegiatan
-                                <?php 
+                <li class="nav-item">
+                    <a href="{{ route('kegiatan.kegiatanpetani') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Jadwal Kegiatan
+                            <?php 
                                     $notifikasi_jadwal = App\Models\Notifikasi::where('tipe', 2)->where('user_id', Auth::user()->id)->where('status', 1)->get();
                                 ?>
-                                @if($notifikasi_jadwal->count() > 1)
-                              <span class="right badge badge-danger">{{ $notifikasi_jadwal->count() }}</span>
-                              @endif
-                                </p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="{{ route('laporan-kegiatan.laporan') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan Kegiatan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('pengajuan.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pengajuan Bantuan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('pengajuan.history') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>History Pengajuan</p>
-                            </a>
-                        </li>
+                            @if($notifikasi_jadwal->count() > 1)
+                            <span class="right badge badge-danger">{{ $notifikasi_jadwal->count() }}</span>
+                            @endif
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('laporan-kegiatan.laporan') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Laporan Kegiatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('pengajuan.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Pengajuan Bantuan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('pengajuan.history') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>History Pengajuan</p>
+                    </a>
+                </li>
                 @endrole
             </ul>
         </nav>

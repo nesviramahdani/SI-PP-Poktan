@@ -57,22 +57,15 @@
     <section class="sheet padding-10mm">
         <br>
         <center>
-            <font size="4">RENCANA KEGIATAN/KUNJUNGAN BULANAN PENYULUH PERTANIAN</font>
+            @php
+            $p = App\Models\Kelompoktani::where('user_id', Auth::user()->id)->first();
+            @endphp
+            <font size="4">RENCANA KEGIATAN KELOMPOK TANI </font><br>
+            <font size="3">{{ $p->nama_kelompoktani }}</font>
+            <font size="2"><i>Tanggal : {{ $data['tanggal_mulai'] }} sampai
+                {{ $data['tanggal_mulai'] }}</i></font><br>
         </center><br>
-        <font>Nomor :</font>
-        <table align="left">
-            <td>
-                <font>Kepada Yth,</font><br>
-                <font>Bpk Kepala Dinas Pertanian Kota Padang</font><br>
-                <font>Di</font><br>
-                <font>Padang</font><br>
-            </td>
-        </table>
         <br>
-        <center>
-            <font>Rencana Kegiatan Penyuluhan pada Dinas Pertanian Kota Padang dari  {{ $data['tanggal_mulai'] }} sampai
-                {{ $data['tanggal_mulai'] }}</font>
-        </center><br>
         <table class="table">
             <thead>
                 <tr>
@@ -81,12 +74,11 @@
                     <th scope="col">Tanggal Kegiatan</th>
                     <th scope="col">Waktu</th>
                     <th scope="col">Lokasi</th>
-                    <th scope="col">Kelompoktani</th>
                     <th scope="col">Ket</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($data['cetakkegiatan'] as $p)
+                @foreach($data['rencanakegiatan'] as $p)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}.</td>
                     <td>{{ $p->kegiatan->nama_kegiatan }}</td>
@@ -94,9 +86,7 @@
                         {{ \Carbon\Carbon::parse($p->kegiatan->tanggal_kegiatan)->format('l/d/m/Y')}}</td>
                     <td class="text-center">{{ $p->kegiatan->jam_mulai }}-{{ $p->kegiatan->jam_selesai }}</td>
                     <td>{{ $p->kegiatan->lokasi }}</td>
-                    <td>{{ $p->kelompoktani->nama_kelompoktani }}</td>
-                    <td>
-                    </td>
+                    <td></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -106,28 +96,17 @@
             <tr>
                 <td>
                     <div>
-                        <div style="width:230px;float:left;margin-left:20px">
+                        <div style="width:230px;float:right;">
                             Padang, {{ date('d F Y') }}
                             @php
-                            $p = App\Models\Penyuluh::where('jabatan', 'Ketua')->first();
+                            $p = App\Models\Kelompoktani::where('user_id', Auth::user()->id)->first();
                             @endphp
                             <br><br><br>
-                            <p>{{ $p->nama_penyuluh }}<br />NIP. {{ $p->nip }}</p>
+                            <p>{{ $p->wkpp->penyuluh->nama_penyuluh }}<br />NIP. {{ $p->wkpp->penyuluh->nip }}</p>
                         </div>
                         <div style="clear:both"></div>
                     </div>
                 </td>
-                <td> <div>
-                  <div style="width:230px;float:right">
-                      Padang, {{ date('d F Y') }}
-                      @php
-                      $p = App\Models\Penyuluh::where('user_id', Auth::user()->id)->first();
-                      @endphp
-                      <br><br><br>
-                      <p>{{ $p->nama_penyuluh }}<br />NIP. {{ $p->nip }}</p>
-                  </div>
-                  <div style="clear:both"></div>
-              </div></td>
             </tr>
         </table>
     </section>

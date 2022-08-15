@@ -11,6 +11,15 @@
 			<div class="card-body">
 				<form method="POST" action="#">
 					@csrf
+					{{-- <div class="form-group">
+                        <label for="nama_kelompoktani">Kelompok Tani</label>
+                        <select required="" name="nama_kelompoktani" id="nama_kelompoktani" class="form-control">
+							<option value="">--Pilih Kelompok Tani--</option>
+                            @foreach($kelompoktani as $row)
+                            <option value="{{ $row->id }}">{{ $row->nama_kelompoktani }}</option>
+                            @endforeach
+                        </select>
+                    </div> --}}
 					<div class="form-group">
 						<label for="tanggal_mulai">Tanggal Mulai</label>
 						<input type="date" name="tanggal_mulai" required="" class="form-control" id="tanggal_mulai">

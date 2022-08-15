@@ -34,14 +34,6 @@ class PengajuanController extends Controller
 
         
         if ($validator->passes()) {
-                // $dir = storage_path().'/app/public/file';
-                // $file = $request->file('proposal');
-
-                // if($file){
-                //     $fileName = Time().".".$file->getClientOriginalName();
-                //     $file->move($dir, $fileName);
-                // }
-
                 $proposal = $request->file('proposal');
                 $nama_proposal = 'Proposal'.date('Ymdhis').'.'.$request->file('proposal')->getClientOriginalExtension();
                 $proposal->move(public_path().'/app/public/proposal', $nama_proposal);

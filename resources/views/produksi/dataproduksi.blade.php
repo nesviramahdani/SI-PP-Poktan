@@ -30,13 +30,11 @@
                     <th scope="col">Jumlah Produksi(ton)</th>
                     <th scope="col">Luas Lahan(Ha)</th>
                     <th scope="col">Tanggal Produksi</th>
-                    <th>Penyuluh</th>
                   
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -81,7 +79,6 @@ $(function () {
           {data: 'jumlah_produksi', name: 'jumlah_produksi'},
           {data: 'luas_tanam', name: 'luas_tanam'},
           {data: 'tanggal_produksi', name: 'tanggal_produksi'},
-          {data: 'kelompoktani.wkpp.penyuluh.nama_penyuluh', name: 'kelompoktani.wkpp.penyuluh.nama_penyuluh'},
       ]
   });
 

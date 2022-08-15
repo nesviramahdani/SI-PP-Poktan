@@ -128,38 +128,23 @@ class ProduksiController extends Controller
         return view ('produksi.laporan');
     }
 
-    // public function showProduksi($tanggal_mulai, $tanggal_selesai)
-    // {
-    //    // dd($tanggal_mulai, $tanggal_selesai);
-    //     // $cetakproduksi = Produksi::with('kelompoktani', 'komoditas')
-    //     // ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])->get();
-    //     $cetakproduksi = Produksi::all();
-    //     return view('produksi.cetaklaporan', compact('cetakproduksi'));
-    // }
 
     public function cetaklaporan($tanggal_mulai, $tanggal_selesai)
     {
-//dd(["Tanggal awal :".$tanggal_mulai, "Tanggal selesai:".$tanggal_selesai]);
         $cetakproduksi = Produksi::with('kelompoktani', 'komoditas')
-        ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])->orderBy('tanggal_produksi', 'asc')->get();
-        //view()->share('cetakproduksi', $cetakproduksi);
-        $pdf = PDF::loadview('produksi.cetaklaporan', compact('cetakproduksi'));
+        ->whereBetween('tanggal_produksi', [$tanggal_mulai, $tanggal_selesai])
+        ->orderBy('tanggal_produksi', 'asc')->get();
+        $data = [
+            'cetakproduksi' => $cetakproduksi,
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_selesai' => $tanggal_selesai,
+        ];
+        $pdf = PDF::loadview('produksi.cetaklaporan', compact('data'));
         return $pdf->stream('dataproduksi.pdf');
       }
 
       public function dataproduksi(Request $request)
       {
-         
-    //     if($request->has('search')){
-    //         $dataproduksi = Produksi::where('nama_kelompoktani', 'LIKE', '%'.$request->search.'%')
-    //         ->orWhere('nama_komoditas', 'LIKE', '%'.$request->search.'%')
-    //         ->paginate(5);
-    //     }
-    //     else{
-    //         $dataproduksi = Produksi::paginate(5);
-    //     }
-    //       return view('produksi.dataproduksi', compact('dataproduksi'));
-
             if ($request->ajax()) {
                 $data = Produksi::with(['kelompoktani' => function($query){
                     $query->with(['wkpp' => function($query){

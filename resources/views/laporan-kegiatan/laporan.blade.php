@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-     
+     <div class="card-header"></div>
       <!-- /.card-header -->
       <div class="card-body">
         <table id="dataTable2" class="table table-bordered table-striped">
@@ -22,6 +22,7 @@
             <th>Tanggal Kegiatan</th>
             <th>Peserta</th>
             <th>Hasil</th>
+            <th>Status</th>
             <th>Dokumentasi</th>
           </tr>
           </thead>
@@ -34,6 +35,7 @@
               <td>{{ \Carbon\Carbon::parse($p->kegiatan->tanggal_kegiatan)->format('l, d F Y')}}</td>
               <td>{{ $p->peserta }}</td>
               <td>{{ $p->hasil }}</td>
+              <td><label class="label {{ ($p->status == 0) ? 'badge badge-warning' : 'badge badge-success' }}">{{ ($p->status == 0) ? 'Belum Terlaksana' : 'Terlaksana' }}</label></td>
               <td>
                 <a href="{{ route('laporan-kegiatan.lihat', $p->id) }}" class="btn btn-primary btn-sm">Lihat</a>
               </td>

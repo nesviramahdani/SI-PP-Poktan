@@ -48,12 +48,12 @@
       <table align="left">
       <td>
         <font>BPP : {{ $penyuluh->bpp->nama_bpp }}</font><br>
-        <font>WKPP :</font><br>
-        <font>Bulan :</font><br>
+        <font>WKPP : {{ $data['nama_wkpp'] }}</font><br>
+        <font>Bulan :{{ $data['month'] }} &ensp; {{$data['year'] }}</font><br>
       </td>
       </table>
        <br>
-       <center><font>Data Laporan Kegiatan Kelompok Tani pada Dinas Pertanian Kota Padang dari {{ $data['tanggal_mulai'] }} sampai {{ $data['tanggal_selesai'] }}</font></center><br>
+       <center><font>Data Laporan Kegiatan Kelompok Tani pada Dinas Pertanian Kota Padang dari {{ $data['month'] }} sampai {{ $data['year'] }}</font></center><br>
         <table class="table">
             <thead>
               <tr>
@@ -66,7 +66,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($data['cetaklaporan'] as $p)
+              @foreach($data['detail'] as $p)
               <tr>
                 <td class="text-center">{{ $loop->iteration }}.</td>
                 <td class="text-center">{{ \Carbon\Carbon::parse($p->kegiatan->tanggal_kegiatan)->format('l/d m Y')}}</td>
@@ -84,7 +84,8 @@
               <td>
                   <div>
                       <div style="width:230px;float:left;margin-left:20px">
-                          Padang, 
+                          Mengetahui
+
                           @php
                           $p = App\Models\Penyuluh::where('jabatan', 'Ketua')->first();
                           @endphp
