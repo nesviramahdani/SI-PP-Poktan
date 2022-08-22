@@ -9,11 +9,14 @@ use App\DataTables\PermissionDataTable;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:read-permissions'])->only(['index', 'show']);
+        $this->middleware(['permission:create-permissions'])->only(['create', 'store']);
+        $this->middleware(['permission:update-permissions'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-permissions'])->only(['destroy']);
+    }
+
     public function index(Request $request, PermissionDataTable $datatable)
     {
         if ($request->ajax()) {

@@ -9,6 +9,14 @@ use Spatie\Permission\Models\Role;
 
 class UserRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read-user-role'])->only(['index', 'show']);
+        $this->middleware(['permission:create-user-role'])->only(['create', 'store']);
+        $this->middleware(['permission:update-user-role'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-user-role'])->only(['destroy']);
+    }
+
     public function index()
     {
     	$users = User::all();

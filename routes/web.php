@@ -70,6 +70,8 @@ Route::prefix('admin')
 	//export excel
 	Route::get('laporanKegiatan-exportexcel', 'LaporanKegiatanController@exportexcel')
 	->name('laporanKegiatan.exportexcel');
+
+	//PENGAJUAN BANTUAN
 	Route::get('pengajuan-bantuan', 'PengajuanController@datapengajuan')
 	->name('pengajuan.datapengajuan');
 	Route::post('/pengajuan-bantuan/hapus/{id}', 'PengajuanController@hapus')->name('pengajuan.hapus');
@@ -127,9 +129,10 @@ Route::get('/anggota', 'AnggotaController@anggota')->name('anggota.anggota');
 	Route::post('/kegiatan/laporan/{id}', 'LaporanKegiatanController@store')->name('laporan-kegiatan.store');
 	//lihat laporan kegiatan
 	Route::get('/LaporanKegiatan', 'LaporanKegiatanController@laporan')->name('laporan-kegiatan.laporan');
-	Route::get('/LaporanKegiatan/lihat/{id}', 'LaporanKegiatanController@lihat')->name('laporan-kegiatan.lihat');
 	
 });
+
+Route::get('/LaporanKegiatan/lihat/{id}', 'LaporanKegiatanController@lihat')->name('laporan-kegiatan.lihat');
 
 Route::prefix('profile')
 ->name('profile.')

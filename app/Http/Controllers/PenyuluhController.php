@@ -50,7 +50,7 @@ class PenyuluhController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users',
-            'nip' => 'required|unique:penyuluh',
+            'nip' => 'required|unique:penyuluh|min:18|max:18',
         ]);
 
         if ($validator->passes()) {

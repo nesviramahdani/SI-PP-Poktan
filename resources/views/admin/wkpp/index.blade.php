@@ -13,10 +13,12 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
+        @can('create-wkpp')
       	<a href="javascript:void(0)" class="btn btn-primary btn-sm" 
         data-toggle="modal" data-target="#createModal">
           <i class="fas fa-plus fa-fw"></i> Tambah Data
         </a>
+        @endcan
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -27,12 +29,14 @@
             <th>ID</th>
             <th>Nama wkpp</th>
             <th>Penyuluh</th>
+            <th>BPP</th>
             <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
           <tr>
           	<td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

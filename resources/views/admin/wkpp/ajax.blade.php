@@ -11,6 +11,7 @@ $(function () {
           {data: 'id_wkpp', name: 'id_wkpp'},
           {data: 'nama_wkpp', name: 'nama_wkpp'},
           {data: 'penyuluh.nama_penyuluh', name: 'penyuluh.nama_penyuluh'},
+          {data: 'penyuluh.bpp.nama_bpp', name: 'penyuluh.bpp.nama_bpp'},
           {data: 'action', name: 'action', orderable: false, searchable: true},
       ]
   });

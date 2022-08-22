@@ -66,6 +66,15 @@ $("body").on("click", ".btn-edit", function() {
       $("#id_edit").val(response.data.id)
       $("#nama_admin_edit").val(response.data.admin.nama_admin)
       $("#editModal").modal("show")
+    },
+    error: function(err) {
+      if (err.status == 403) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Not allowed!'
+        })
+      }
     }
   })
 })

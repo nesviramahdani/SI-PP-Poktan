@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:read-pengajuan'])->only(['index', 'show', 'datapengajuan']);
+        $this->middleware(['permission:create-pengajuan'])->only(['create', 'store']);
+        $this->middleware(['permission:update-pengajuan'])->only(['edit', 'update', 'status']);
+    }
+
+
     public function index()
     {
         $kelompoktani = Kelompoktani::all();

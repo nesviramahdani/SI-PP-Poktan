@@ -15,6 +15,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware(['permission:read-users'])->only(['index', 'show']);
+        $this->middleware(['permission:create-users'])->only(['create', 'store']);
+        $this->middleware(['permission:update-users'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-users'])->only(['destroy']);
+    }
+
+
     public function index(Request $request, UserDataTable $datatable)
     {
         if ($request->ajax()) {

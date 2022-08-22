@@ -16,10 +16,12 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
+        @can('create-admin')
       	<a href="javascript:void(0)" class="btn btn-primary btn-sm" 
         data-toggle="modal" data-target="#createModal">
           <i class="fas fa-plus fa-fw"></i> Tambah Data
         </a>
+        @endcan
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -91,7 +93,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Tambah Data</h5>
+        <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

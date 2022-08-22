@@ -12,7 +12,14 @@ use App\Models\Penyuluh;
 
 class WkppController extends Controller
 {
-   
+    public function __construct()
+    {
+        $this->middleware(['permission:read-wkpp'])->only(['index', 'show']);
+        $this->middleware(['permission:create-wkpp'])->only(['create', 'store']);
+        $this->middleware(['permission:update-wkpp'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-wkpp'])->only(['destroy']);
+    }
+
     public function index(Request $request, WkppDataTable $datatable)
     {
         if ($request->ajax()) {

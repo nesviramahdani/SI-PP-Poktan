@@ -9,11 +9,15 @@ use App\DataTables\RoleDataTable;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:read-roles'])->only(['index', 'show']);
+        $this->middleware(['permission:create-roles'])->only(['create', 'store']);
+        $this->middleware(['permission:update-roles'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-roles'])->only(['destroy']);
+    }
+
+
     public function index(Request $request, RoleDataTable $datatable)
     {
         if ($request->ajax()) {

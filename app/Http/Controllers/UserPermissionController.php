@@ -10,6 +10,14 @@ use Spatie\Permission\Models\Permission;
 
 class UserPermissionController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware(['permission:read-user-permission'])->only(['index', 'show']);
+        $this->middleware(['permission:create-user-permission'])->only(['create', 'store']);
+        $this->middleware(['permission:update-user-permission'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-user-permission'])->only(['destroy']);
+    }
+
 	public function index()
     {
     	$users = User::all();

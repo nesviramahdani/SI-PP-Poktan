@@ -42,7 +42,7 @@
             </dl>
         </div>
         <!-- /.card-body -->
-        <a href="{{ route('kegiatan.kegiatanpetani') }}" class="btn btn-primary btn-sm">Kembali</a>
+        {{-- <a href="" class="btn btn-primary btn-sm">Kembali</a> --}}
     </div>
     <!-- /.card -->
  

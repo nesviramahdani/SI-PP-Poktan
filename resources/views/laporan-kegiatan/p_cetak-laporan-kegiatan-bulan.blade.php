@@ -84,10 +84,11 @@
               <td>
                   <div>
                       <div style="width:230px;float:left;margin-left:20px">
-                          Mengetahui
-
+                          Mengetahui,<br>
+                          Koordinator {{ $penyuluh->bpp->nama_bpp }}
                           @php
-                          $p = App\Models\Penyuluh::where('jabatan', 'Ketua')->first();
+                          $pajako = App\Models\Penyuluh::where('user_id', Auth::user()->id)->first();
+                          $p = App\Models\Penyuluh::where('jabatan', 'Ketua')->where('bpp_id', $pajako->bpp_id)->first();
                           @endphp
                           <br><br><br>
                           <p>{{ $p->nama_penyuluh }}<br />NIP. {{ $p->nip }}</p>
@@ -96,13 +97,11 @@
                   </div>
               </td>
               <td> <div>
-                <div style="width:230px;float:right">
-                    Padang, {{ date('d F Y') }}
-                    @php
-                    $p = App\Models\Penyuluh::where('user_id', Auth::user()->id)->first();
-                    @endphp
+                <div style="width:350px;float:right">
+                    Padang, {{ date('d F Y') }}<br>
+                    Penyuluh Pertanian WKPP {{ $data['nama_wkpp']  }}
                     <br><br><br>
-                    <p>{{ $p->nama_penyuluh }}<br />NIP. {{ $p->nip }}</p>
+                    <p>{{ $pajako->nama_penyuluh }}<br />NIP. {{ $pajako->nip }}</p>
                 </div>
                 <div style="clear:both"></div>
             </div></td>

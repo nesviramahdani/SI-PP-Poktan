@@ -15,6 +15,16 @@ use App\DataTables\AdminListDataTable;
 
 class AdminListController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware(['permission:read-admin'])->only(['index', 'show']);
+        $this->middleware(['permission:create-admin'])->only(['create', 'store']);
+        $this->middleware(['permission:update-admin'])->only(['edit', 'update']);
+        $this->middleware(['permission:delete-admin'])->only(['destroy']);
+    }
+
+
     public function index(Request $request, AdminListDataTable $datatable)
     {
         if ($request->ajax()) {
@@ -35,7 +45,7 @@ class AdminListController extends Controller
             DB::transaction(function() use($request){
                 $user = User::create([
                     'username' => Str::lower($request->username),
-                    'password' => Hash::make('admin'),
+                    'password' => Hash::make('password'),
                 ]);
 
                 $user->assignRole('admin');
@@ -55,7 +65,7 @@ class AdminListController extends Controller
 
     public function edit($id)
     {
-    	$admin = User::with(['admin'])->findOrFail($id);
+    	$admin = Admin::findOrFail($id);
         return response()->json(['data' => $admin]);
     }
 
@@ -78,8 +88,9 @@ class AdminListController extends Controller
 
     public function destroy($id)
     {
-    	Admin::where('user_id', $id)->delete();
-    	User::findOrFail($id)->delete();
+    	$admin = Admin::findOrFail($id);
+        User::findOrFail($admin->user_id)->delete();
+        $admin->delete();
         return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 }

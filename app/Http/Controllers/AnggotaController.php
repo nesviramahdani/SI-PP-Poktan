@@ -50,7 +50,7 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|unique:anggota',
+            'nik' => 'required|unique:anggota|min:16|max:16',
             'nama_anggota' => 'required',
             'jenis_kelamin' => 'required',
             'jabatan' => 'required',
